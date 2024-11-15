@@ -19,7 +19,7 @@ export default function Login() {
     .then(res => {
       if (res.data.Status === 'Success'){
         setisloading(false);
-        navigate('/');
+        navigate('/home');
       } else {
         alert(res.data.Error);
         setisloading(false);

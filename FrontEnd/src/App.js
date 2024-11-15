@@ -8,22 +8,24 @@ import Feedback from './Components/Feedback/Feedback';
 import Diagnostics from './Components/Diagnostics/Diagnostics';
 import Register from './Components/Register/Register';
 import Login from './Components/Login/Login';
+import Welcome from './Components/Welcome/Welcome';
 import NotFound from './Components/NotFound/NotFound';
 
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+
 
 function App() {
 
   let routers = createBrowserRouter([
     {path:'', element:<Layout/>, children:[
-      {index:true, element:<Home/>},
+      {index:true, element:<Welcome/>},
       {path:'about', element:<About/>},
       {path:'faq', element:<Faq/>},
       {path:'feedback', element:<Feedback/>},
       {path:'diagnostics', element:<Diagnostics/>},
       {path:'login', element:<Login/>},
       {path:'register', element:<Register/>},
-      {path:'logout',element:<Home/>},
+      {path:'home',element:<Home/>},
       {path:'*', element:<NotFound/>},
     ]}
   ])

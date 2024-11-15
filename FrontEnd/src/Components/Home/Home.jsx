@@ -43,13 +43,11 @@ export default function Home() {
         auth ?
         <div>
           <h3>You are authorized --- {name}</h3>
-          <button className='btn btn-danger' onClick={handleLogout}>Logout</button>
         </div>
         :
         <div>
           <h3>{message}</h3>
           <h3>Login Now</h3>
-          <Link to="/login" className='btn btn-primary'>Login</Link>
         </div>
       }
 
