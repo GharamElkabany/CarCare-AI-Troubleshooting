@@ -1,28 +1,40 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Home.module.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-
+import { Link, useOutletContext } from 'react-router-dom';
 
 export default function Home() {
-  const [auth, setAuth] = useState(false);
+  const {setAuth} = useOutletContext();
+  const [auth, setLocalAuth] = useState(false);
   const [message, setMessage] = useState('');
   const [name, setName] = useState('');
 
   axios.defaults.withCredentials = true;
+
   useEffect(()=> {
     axios.get('http://localhost:5000')
     .then(res => {
       if (res.data.Status === 'Success'){
-        setAuth(true);
+        setLocalAuth(true);
         setName(res.data.name);
+        setAuth(true);
       } else {
-        setAuth(false);
+        setLocalAuth(false);
         setMessage(res.data.Error);
+        setAuth(false);
       }
     })
     .then(err => console.log(err));
-  }, [])
+  }, [setAuth])
+
+  const handleLogout = () => {
+    axios.get('http://localhost:5000/logout')
+    .then(res => {
+      setLocalAuth(false);
+      setAuth(false);
+    })
+    .catch (err => console.log(err));
+  }
 
   return <>
 
@@ -31,7 +43,7 @@ export default function Home() {
         auth ?
         <div>
           <h3>You are authorized --- {name}</h3>
-          <button className='btn btn-danger'>Logout</button>
+          <button className='btn btn-danger' onClick={handleLogout}>Logout</button>
         </div>
         :
         <div>

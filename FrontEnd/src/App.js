@@ -23,6 +23,7 @@ function App() {
       {path:'diagnostics', element:<Diagnostics/>},
       {path:'login', element:<Login/>},
       {path:'register', element:<Register/>},
+      {path:'logout',element:<Home/>},
       {path:'*', element:<NotFound/>},
     ]}
   ])
