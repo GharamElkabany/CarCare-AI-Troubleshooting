@@ -1,1 +1,58 @@
-.Welcome {}
+.welcomeContainer {
+    background-image: url('../../assets/images/welcomebg.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 68.2vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    text-align: left;
+  }
+  
+  .heroSection {
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    border-radius: 10px; /* Slight rounded corners for a modern look */
+    max-width: 500px;
+    margin-left: 48rem;
+    min-height: 430px;
+  }
+  
+  .heroSection h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 1.5rem;
+}
+
+.heroSection h3 {
+    font-size: 1.7rem;
+    font-weight: 500;
+    color: #eee;
+    margin-bottom: 1.5rem;
+}
+
+.heroSection p {
+    font-size: 1.2rem;
+    color: #ccc;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+}
+
+.btnCustom {
+    padding: 0.6rem 2.5rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #28a745;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.btnCustom:hover {
+    background-color: #218838; /* Darker green on hover */
+    color: #fff;
+}

@@ -1,15 +1,17 @@
 /* Footer styles */
 .footer {
     margin: 0;
-    padding: 0; /* Adjust padding as needed */
+    padding: 1rem 0; 
     position:inherit;
     bottom: 0;
     width: 100%;
+    z-index: 10;
+    background-color: #1a1a1a;
   }
 
 .footer h5 {
     font-size: 0.9rem !important;
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     font-weight: bold;
   }
   
