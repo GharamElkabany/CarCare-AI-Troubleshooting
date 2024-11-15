@@ -11,7 +11,11 @@ const salt = 10;
 const app = express();
 
 app.use(express.json());//passing json data from incoming http requests
-app.use(cors()); //address security consern
+app.use(cors({
+    origin:["http://localhost:3000"],
+    methods:["POST", "GET"],
+    credentials: true
+})); //address security consern
 app.use(cookieParser());
 
 const port = 5000
@@ -21,6 +25,26 @@ const db = mysql.createConnection({
     user: "root",
     password: "",
     database: "carcare"
+})
+
+const verifyUser = (req, res, next) => {
+    const token = req.cookies.token;
+    if(!token){
+        return res.json({Error: "You are not authenticated"});
+    } else {
+        jwt.verify(token, "jwt-secret-key", (err,decoded) => {
+            if(err) {
+                return res.json({Error: "Token is not okay"});
+            } else {
+                req.name = decoded.name;
+                next();
+            }
+        })
+    }
+}
+
+app.get('/', verifyUser, (req, res) => {
+    return res.json({Status: "Success", name:req.name});
 })
 
 app.post('/register', (req, res)=>{
@@ -49,6 +73,9 @@ app.post('/login', (req, res)=>{
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
                 if(err)return res.json({Error: "Password compare error"});
                 if(response) {
+                    const name = data[0].name;
+                    const token = jwt.sign({name}, "jwt-secret-key", {expiresIn: '1d'});
+                    res.cookie('token', token);
                     return res.json({Status: "Success"});
                 } else {
                     return res.json({Error: "Password not matched"});

@@ -10,6 +10,8 @@ export default function Login() {
   let navigate = useNavigate();
   const [isloading, setisloading] = useState(false);
 
+  axios.defaults.withCredentials = true;
+
   function handleLogin(values)
   {
     setisloading(true);
