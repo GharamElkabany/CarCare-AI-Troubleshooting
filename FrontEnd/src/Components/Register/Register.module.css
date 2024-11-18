@@ -1,1 +1,152 @@
-.Register {}
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 70px); 
+    background-image: url('../../assets/images/registerbg.jpg'); 
+    /* background-color: aquamarine; */
+    background-size: cover;
+    background-position: center;
+}
+
+.formcontainer {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    width: 320px;
+    text-align: center;
+}
+
+.formcontainer h2 {
+    color: #00FF00;
+    margin-bottom: 20px;
+}
+
+.formcontainer p {
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.formcontainer form {
+    display: flex;
+    flex-direction: column;
+}
+
+.formcontainer button {
+    padding: 10px;
+    background-color: #13df13;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    margin-top: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.formcontainer button:hover {
+    background-color: #40b940e8;
+}
+
+.signin {
+    color: #fff;
+    margin-top: 20px;
+}
+
+.signin a {
+    color: #00FF00;
+    text-decoration: none;
+}
+
+.signin a:hover {
+    color: #00FF00;
+    text-decoration: underline;
+}
+
+/* Custom Input Styles */
+.textInputWrapper {
+  position: relative;
+  width: 280px; 
+  margin: 12px 0; /* Adjusted margin */
+  --accent-color: #a3e583;
+}
+
+.textInputWrapper:before {
+  transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.42);
+}
+
+.textInputWrapper:before,
+.textInputWrapper:after {
+  content: "";
+  left: 0;
+  right: 0;
+  position: absolute;
+  pointer-events: none;
+  bottom: -1px;
+  z-index: 4;
+  width: 100%;
+}
+
+.textInputWrapper:focus-within:before {
+  border-bottom: 1px solid var(--accent-color);
+}
+
+.textInputWrapper:focus-within:after {
+  border-bottom: 2px solid var(--accent-color);
+  transform: scaleX(1);
+}
+
+.textInputWrapper:after {
+    content: "";
+    position: absolute;
+    left: 0; /* Align left */
+    right: 0; /* Align right */
+    bottom: -1px; /* Place it right at the bottom of the input */
+    z-index: 4;
+    width: 100%; /* Full width to match the input */
+    transform: scaleX(0); /* Initially set to 0 scale */
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+    will-change: transform;
+    border-bottom: 2px solid var(--accent-color); /* Set the green border */
+    border-bottom-color: var(--accent-color);
+}
+
+.textInput::placeholder {
+  transition: opacity 250ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  opacity: 1;
+  user-select: none;
+  color: rgba(255, 255, 255, 0.582);
+}
+
+.textInputWrapper .textInput {
+  border-radius: 5px 5px 0px 0px;
+  box-shadow: 0px 2px 5px rgb(35 35 35 / 30%);
+  max-height: 36px;
+  background-color: #252525;
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 200ms;
+  transition-property: background-color;
+  color: #e8e8e8;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px;
+  width: 100%;
+  border-left: none;
+  border-bottom: none;
+  border-right: none;
+}
+
+.textInputWrapper .textInput:focus,
+.textInputWrapper .textInput:active {
+  outline: none;
+}
+
+.textInputWrapper:focus-within .textInput,
+.textInputWrapper .textInput:focus,
+.textInputWrapper .textInput:active {
+  background-color: #353535;
+}
+
+.textInputWrapper:focus-within .textInput::placeholder {
+  opacity: 0;
+}

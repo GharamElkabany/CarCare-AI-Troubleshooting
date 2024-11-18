@@ -34,7 +34,7 @@ export default function Layout() {
   return <>
     <Navbar auth={auth} handleLogout={handleLogout}/>
     
-    <div className="container">
+    <div className={styles.outletWrapper}>
       <Outlet context={{ setAuth }}/>
     </div>
 

@@ -2,7 +2,7 @@
     background-image: url('../../assets/images/welcomebg.jpg');
     background-size: cover;
     background-position: center;
-    min-height: 68.2vh; 
+    min-height: 68vh; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -12,10 +12,11 @@
   
   .heroSection {
     padding: 2rem;
-    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
-    border-radius: 10px; /* Slight rounded corners for a modern look */
-    max-width: 500px;
-    margin-left: 48rem;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px; 
+    max-width: 90%;
+    width: 500px;
+    margin-left: 53rem;
     min-height: 430px;
   }
   
@@ -53,6 +54,60 @@
 }
 
 .btnCustom:hover {
-    background-color: #218838; /* Darker green on hover */
+    background-color: #218838; 
     color: #fff;
+}
+
+/* Medium screens (tablets, larger phones) */
+@media (max-width: 992px) {
+    .heroSection {
+        width: 90%;        
+        margin-left: auto; 
+        margin-right: auto;
+        min-height: 320px;
+    }
+
+    .heroSection h1 {
+        font-size: 2rem;
+    }
+
+    .heroSection h3 {
+        font-size: 1.4rem;
+    }
+
+    .heroSection p {
+        font-size: 1rem;
+    }
+
+    .btnCustom {
+        padding: 0.5rem 2rem;
+        font-size: 1.1rem;
+    }
+}
+
+/* Small screens (mobile phones) */
+@media (max-width: 576px) {
+    .heroSection {
+        width: 100%;      
+        padding: 1rem;
+        margin: auto;      
+        min-height: 260px;
+    }
+
+    .heroSection h1 {
+        font-size: 1.8rem;
+    }
+
+    .heroSection h3 {
+        font-size: 1.2rem;
+    }
+
+    .heroSection p {
+        font-size: 0.9rem;
+    }
+
+    .btnCustom {
+        padding: 0.5rem 1.5rem;
+        font-size: 1rem;
+    }
 }
