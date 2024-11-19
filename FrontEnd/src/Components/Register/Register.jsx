@@ -28,8 +28,8 @@ export default function Register() {
   let validationSchema = Yup.object({
     name: Yup.string()
       .required("Name is required")
-      .min(3, "Name minlength is 3")
-      .max(10, "Name maxlength is 10"),
+      .min(3, "Name minimum length is 3")
+      .max(10, "Name maximum length is 10"),
     email: Yup.string().required("Email is required").email("Email is invalid"),
     phone: Yup.string()
       .required("Phone is required")
@@ -41,7 +41,7 @@ export default function Register() {
       .required("Password is required")
       .matches(
         /^[A-Z][a-z0-9]{5,10}$/,
-        "Password must start with upercase ..."
+        "Password must start with upercase"
       ),
     repassword: Yup.string()
       .required("Confirm Password is required")
@@ -85,7 +85,7 @@ export default function Register() {
               />
             </div>
             {formik.errors.name && formik.touched.name ? (
-                <div className="alert alert-danger">{formik.errors.name}</div>
+                <div className={`${styles.alert} alert alert-danger`}>{formik.errors.name}</div>
               ) : null}
 
             <div className={`${styles.textInputWrapper}`}>
@@ -101,7 +101,7 @@ export default function Register() {
               />
             </div>
             {formik.errors.email && formik.touched.email ? (
-              <div className="alert alert-danger">{formik.errors.email}</div>
+              <div className={`${styles.alert} alert alert-danger`}>{formik.errors.email}</div>
             ) : null}
 
             <div className={`${styles.textInputWrapper}`}>
@@ -116,9 +116,12 @@ export default function Register() {
                 id="phone"
               />
             </div>
-            {formik.errors.phone && formik.touched.phone ? (
-              <div className="alert alert-danger">{formik.errors.phone}</div>
-            ) : null}
+            <span>
+              {formik.errors.phone && formik.touched.phone ? (
+                <div className={`${styles.alert} alert alert-danger`}>{formik.errors.phone}</div>
+              ) : null}
+            </span>
+            
 
             <div className={`${styles.textInputWrapper}`}>
               <input
@@ -133,7 +136,7 @@ export default function Register() {
               />
             </div>
             {formik.errors.password && formik.touched.password ? (
-              <div className="alert alert-danger">{formik.errors.password}</div>
+              <div className={`${styles.alert} alert alert-danger`}>{formik.errors.password}</div>
             ) : null}
 
             <div className={`${styles.textInputWrapper}`}>
@@ -149,7 +152,7 @@ export default function Register() {
               />
             </div>
             {formik.errors.repassword && formik.touched.repassword ? (
-              <div className="alert alert-danger">{formik.errors.repassword}</div>
+              <div className={`${styles.alert} alert alert-danger`}>{formik.errors.repassword}</div>
             ) : null}
 
             <button disabled={!(formik.isValid && formik.dirty)} type="submit">Register</button>

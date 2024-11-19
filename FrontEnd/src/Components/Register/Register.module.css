@@ -2,11 +2,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 70px); 
+    height: calc(100vh - 60px); 
+    padding: 20px;
+    overflow-y: auto;
     background-image: url('../../assets/images/registerbg.jpg'); 
-    /* background-color: aquamarine; */
     background-size: cover;
     background-position: center;
+}
+
+.alert {
+  margin: 2px;
+  height: 55px;
+  word-wrap: break-word;
 }
 
 .formcontainer {

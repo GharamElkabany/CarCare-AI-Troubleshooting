@@ -66,8 +66,8 @@ app.post('/register', (req, res)=>{
 })
 
 app.post('/login', (req, res)=>{
-    const sql = 'SELECT * FROM login WHERE  email = ?';
-    db.query(sql, [req.body.email], (err, data) =>{
+    const sql = 'SELECT * FROM login WHERE  email = ? OR phone = ?';
+    db.query(sql, [req.body.email || req.body.phone, req.body.email || req.body.phone], (err, data) =>{
         if(err) return res.json({Error: "Login error in server"});
         if(data.length > 0){
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
@@ -82,7 +82,7 @@ app.post('/login', (req, res)=>{
                 }
             })
         } else {
-            return res.json({Error: "No email existed"});
+            return res.json({Error: "No account found with the provided email or phone number"});
         }
     })
 })

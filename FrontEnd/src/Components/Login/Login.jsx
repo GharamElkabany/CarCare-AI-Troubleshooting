@@ -4,68 +4,209 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useEffect } from 'react';
 
 
 export default function Login() {
   let navigate = useNavigate();
-  const [isloading, setisloading] = useState(false);
+
+  useEffect(() => {
+    emailFormik.resetForm(); // Reset email form
+    phoneFormik.resetForm(); // Reset phone form
+  }, []);
+
+  useEffect(() => {
+    localStorage.clear();
+    sessionStorage.clear();
+  }, []);
 
   axios.defaults.withCredentials = true;
 
   function handleLogin(values)
   {
-    setisloading(true);
     axios.post('http://localhost:5000/login',values)
     .then(res => {
       if (res.data.Status === 'Success'){
-        setisloading(false);
         navigate('/home');
       } else {
         alert(res.data.Error);
-        setisloading(false);
       }
     })
     .then(err => console.log(err));
 
   }
 
-  let validationSchema = Yup.object({
-    email : Yup.string().required('Email is required').email('Email is invalid'),
+  let emailvalidationSchema = Yup.object({
+    email :Yup.string().required('Email is required').email('Email is invalid'),
     password : Yup.string().required('Password is required').matches(/^[A-Z][a-z0-9]{5,10}$/ , 'Password must start with upercase ...'),
   })
 
-  let formik = useFormik({
+  let phoneValidationSchema = Yup.object({
+    phone: Yup.string()
+      .required('Phone number is required')
+      .matches(
+        /^(\+?6?01)[02-46-9]-*[0-9]{7}$|^(\+?6?01)[1]-*[0-9]{8}$/,
+        'Phone must be a valid number'
+      ),
+    password: Yup.string()
+      .required('Password is required')
+      .matches(/^[A-Z][a-z0-9]{5,10}$/, 'Password must start with an uppercase letter...'),
+  });
+
+  let emailFormik = useFormik({
     initialValues:{
       email:'',
       password:'',
     },
-    validationSchema,
+    validationSchema: emailvalidationSchema,
     onSubmit:handleLogin
   })
+  let phoneFormik = useFormik({
+    initialValues: { 
+      phone: '', 
+      password: '' 
+    },
+    validationSchema: phoneValidationSchema,
+    onSubmit: handleLogin,
+  });
 
   return <>
-    <div className='w-75 mx-auto py-4'>
-      <h3 className='mb-4'>Login Now</h3>
+  <div className={`${styles.container}`}>
+    <div className={`${styles.section}`}>
+      <div className={`${styles.container}`}>
+        <div className="row full-height justify-content-center">
+          <div className="col-12 text-center align-self-center py-5">
+            <div className={`${styles.section} pb-5 pt-5 pt-sm-2 text-center`}>
+              <h6 class="mb-0 pb-3">
+                <span>Email</span>
+                <span>Phone number</span>
+              </h6>
+              <input className={`${styles.checkbox}`} type="checkbox" id="reg-log" name="reg-log" />
+              <label htmlFor="reg-log"></label>
+              <div className={`${styles.card3dwrap} mx-auto`}>
+                <div className={`${styles.card3dwrapper}`}>
+                  {/* Front Card: Login with Email */}
+                  <div className={`${styles.cardfront}`}>
+                    <div className={`${styles.centerwrap}`}>
+                      <div className={`${styles.section} text-center`}>
+                        <h4 className="mb-4 pb-3">Login with Email</h4>
+                        <form onSubmit={emailFormik.handleSubmit}>
+                          <div className={`${styles.centerContent}`}>
+                            <div className={`${styles.textInputWrapper}`}>
+                              <input type="text" style={{ display: 'none' }} autoComplete="username" />
+                              <input type="password" style={{ display: 'none' }} autoComplete="new-password" />
+                              <input
+                                type="text"
+                                name="email"
+                                className={`${styles.textInput}`}
+                                placeholder="Your Email"
+                                id="email"
+                                autoComplete="off"
+                                onBlur={emailFormik.handleBlur}
+                                onChange={emailFormik.handleChange}
+                                value={emailFormik.values.email}
+                              />
+                            </div>  
+                            {emailFormik.touched.email && emailFormik.errors.email && (
+                              <div className={`${styles.customAlert} alert alert-danger`}>{emailFormik.errors.email}</div>
+                            )}
+                            
+                            <div className={`${styles.textInputWrapper} mt-2`}>
+                              <input
+                                type="password"
+                                name="password"
+                                className={`${styles.textInput}`}
+                                placeholder="Your Password"
+                                id="password"
+                                autoComplete="off"
+                                onBlur={emailFormik.handleBlur}
+                                onChange={emailFormik.handleChange}
+                                value={emailFormik.values.password}
+                              />
+                            </div>  
+                            {emailFormik.touched.password && emailFormik.errors.password && (
+                              <div className={`${styles.customAlert} alert alert-danger`}>{emailFormik.errors.password}</div>
+                            )}
+                            
+                          </div> 
 
-      <form onSubmit={formik.handleSubmit}>
-        
-        <label htmlFor="email">Email :</label>
-        <input onBlur={formik.handleBlur} className='form-control mb-2' onChange={formik.handleChange} value={formik.values.email} type='text' name='email' id='email'/>
-        {formik.errors.email && formik.touched.email ? <div className='alert alert-danger'>{formik.errors.email}</div> : null }
+                          <button
+                            type="submit"
+                            className={`${styles.btn} mt-4`}
+                            disabled={!emailFormik.isValid || !emailFormik.dirty}
+                          >
+                            Login
+                          </button> 
+                        </form>
+                      </div>
+                    </div>
+                  </div>
 
-        <label htmlFor="password">Password :</label>
-        <input onBlur={formik.handleBlur} className='form-control mb-2' onChange={formik.handleChange} value={formik.values.password} type="password" name='password' id='password'/>
-        {formik.errors.password && formik.touched.password ? <div className="alert alert-danger">{formik.errors.password}</div> : null }
+                  {/* Back Card: Login with Phone */}
+                  <div className={`${styles.cardback}`}>
+                    <div className={`${styles.centerwrap}`}>
+                      <div className={`${styles.section} text-center`}>
+                        <h4 className="mb-4 pb-3">Login with Phone</h4>
+                        <form onSubmit={phoneFormik.handleSubmit}>
+                          <div className={`${styles.centerContent}`}>
+                            <div className={`${styles.textInputWrapper}`}>
+                              <input type="text" style={{ display: 'none' }} autoComplete="username" />
+                              <input type="password" style={{ display: 'none' }} autoComplete="new-password" />
+                              <input
+                                type="text"
+                                name="phone"
+                                className={`${styles.textInput}`}
+                                placeholder="Your Phone Number"
+                                id="phone"
+                                autoComplete="off"
+                                onBlur={phoneFormik.handleBlur}
+                                onChange={phoneFormik.handleChange}
+                                value={phoneFormik.values.phone}
+                              />
+                              </div>
+                              <i className={`${styles.inputicon} uil uil-phone`}></i>
+                              {phoneFormik.touched.phone && phoneFormik.errors.phone && (
+                                <div className={`${styles.customAlert} alert alert-danger`}>{phoneFormik.errors.phone}</div>
+                              )}
+                            
+                            <div className={`${styles.textInputWrapper}  mt-2`}>
+                              <input
+                                type="password"
+                                name="password"
+                                className={`${styles.textInput}`}
+                                placeholder="Your Password"
+                                id="password"
+                                autoComplete="off"
+                                onBlur={phoneFormik.handleBlur}
+                                onChange={phoneFormik.handleChange}
+                                value={phoneFormik.values.password}
+                              />
+                              </div>
+                              <i className={`${styles.inputicon} uil uil-lock-alt`}></i>
+                              {phoneFormik.touched.password && phoneFormik.errors.password && (
+                                <div className={`${styles.customAlert} alert alert-danger`}>{phoneFormik.errors.password}</div>
+                              )}
+                            
+                          </div>  
 
-        
-        {isloading ? <button type='button' className='btn bg-main text-white'><i className='fas fa-spinner fa-spin'></i></button> : 
-          <button disabled = {! (formik.isValid && formik.dirty)} type='submit' className='btn bg-main text-white'>Login</button>
-          }
-                                      
-
-      </form>
-
+                          <button
+                            type="submit"
+                            className={`${styles.btn} mt-4`}
+                            disabled={!phoneFormik.isValid || !phoneFormik.dirty}
+                          >
+                            Login
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
+    </div>  
   </>
 }
