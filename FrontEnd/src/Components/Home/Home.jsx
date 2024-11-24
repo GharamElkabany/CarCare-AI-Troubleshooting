@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import styles from './Home.module.css';
 import axios from 'axios';
 import { Link, useOutletContext } from 'react-router-dom';
+import About from '../About/About';
+import Faq from '../Faq/Faq';
+import Feedback from '../Feedback/Feedback';
 
 export default function Home() {
   const {setAuth} = useOutletContext();
@@ -27,31 +30,19 @@ export default function Home() {
     .then(err => console.log(err));
   }, [setAuth])
 
-  const handleLogout = () => {
-    axios.get('http://localhost:5000/logout')
-    .then(res => {
-      setLocalAuth(false);
-      setAuth(false);
-    })
-    .catch (err => console.log(err));
-  }
-
   return <>
-
-    <div className='container mt-4'>
-      {
-        auth ?
-        <div>
-          <h3>You are authorized --- {name}</h3>
-        </div>
-        :
-        <div>
-          <h3>{message}</h3>
-          <h3>Login Now</h3>
-        </div>
-      }
-
+    <div className={styles.homeContainer}>
+      <div className={styles.heroSection}>
+        <h1 className={styles.heroTitle}>Empower Your Car Maintenance</h1>
+        <p className={styles.heroSubtitle}>Diagnose and Fix Car Issues with Ease</p>
+        <Link to="/diagnostics">
+          <button className={styles.heroButton}>Chat with our AI Diagnostic Now</button>
+        </Link>
+      </div>
     </div>
-    
+
+    <About/>
+    <Faq/>
+    <Feedback/>
   </>
 }

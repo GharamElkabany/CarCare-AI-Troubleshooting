@@ -1,1 +1,66 @@
-.Home {}
+.homeContainer {
+    background-image: url('../../assets/images/homebg.jpg'); /* Replace with the correct path */
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh; /* Full screen height */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+  }
+  
+  .heroSection {
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.81); /* Transparent background */
+    border-radius: 10px;
+    max-width: 600px; /* Adjust width for content */
+    width: 90%; /* Responsive width */
+    text-align: center;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5); /* Subtle shadow */
+  }
+  
+  .heroTitle {
+    font-size: 2.8rem; /* Bold title font */
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #fff;
+  }
+  
+  .heroSubtitle {
+    font-size: 1.2rem; /* Smaller subtitle */
+    font-weight: 400;
+    margin-bottom: 2rem;
+    color: #dcdcdc; /* Lighter text color */
+  }
+  
+  .heroButton {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #28a745; /* Green button */
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .heroButton:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05); /* Slight zoom */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .heroTitle {
+      font-size: 1.5rem; /* Smaller font for smaller screens */
+    }
+  
+    .heroSubtitle {
+      font-size: 1rem;
+    }
+  
+    .heroButton {
+      font-size: 0.9rem;
+    }
+  }

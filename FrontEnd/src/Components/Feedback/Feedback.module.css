@@ -1,1 +1,112 @@
-.Feedback {}
+.feedbackContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full screen height */
+    background-color: #293528; /* Dark green background */
+    background-image: url('../../assets/images/Feedbackbg.jpg'); /* Replace with the actual path */
+    background-size: 50%;
+    background-repeat: repeat;
+    background-position: center;
+    padding: 2rem;
+    background-blend-mode: multiply;
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+  
+  .feedbackBox {
+    background-color: rgba(0, 0, 0, 0.85); /* Dark transparent background */
+    padding: 2rem;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .ratingContainer {
+    margin-bottom: 1.5rem;
+  }
+  
+  .question {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 1rem;
+  }
+  
+  .stars {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  
+  .star {
+    font-size: 2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .star:hover {
+    transform: scale(1.2); /* Slightly larger on hover */
+  }
+  
+  .textAreaContainer {
+    margin-bottom: 1.5rem;
+  }
+  
+  .textArea {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    resize: none;
+    background-color: #333;
+    color: #ffffff;
+  }
+  
+  .textArea::placeholder {
+    color: #ccc;
+  }
+  
+  .submitButton {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #28a745; /* Green button */
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .submitButton:hover {
+    background-color: #218838; /* Darker green on hover */
+    transform: scale(1.05);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .title {
+      font-size: 2rem;
+    }
+  
+    .question {
+      font-size: 1rem;
+    }
+  
+    .star {
+      font-size: 1.5rem;
+    }
+  }
+  

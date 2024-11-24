@@ -1,1 +1,113 @@
-.Faq {}
+.aboutContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Full screen height */
+    background-color: #1E281E; /* Dark background */
+    padding: 2rem;
+  }
+  
+  /* Wrapper for Content */
+  .contentWrapper {
+    display: flex;
+    align-items: center;
+    max-width: 1200px; /* Limit content width */
+    width: 100%;
+    gap: 2rem; /* Space between image and text */
+  }
+  
+  /* Image Section */
+  .imageContainer {
+    flex: 1; /* Allow image to take equal space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../assets/images/FAQ.png'); /* Replace with actual path */
+    background-size: contain; /* Resize to fit within the container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    width: 100%; /* Full width for the image area */
+    height: 400px; /* Set height of the image container */
+  }
+  
+  
+  /* Text Section */
+  .textContainer {
+    flex: 1; /* Equal space for text */
+    color: #ffffff; /* White text */
+  }
+  
+  .title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #ffffff; /* Title in bold white */
+    text-align: left;
+  }
+  
+  .paragraph {
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.8; /* Improved readability */
+    color: #90ee90; /* Greenish text */
+    margin-top: 1.3rem;
+    margin-bottom: 1rem;
+    text-align: justify;
+  }
+
+  .faqList {
+    margin-top: 4.5rem;
+  }
+  
+  .faqItem {
+    margin-bottom: 1rem;
+    cursor: pointer;
+    border-bottom: 1px solid #90ee90;
+    padding-bottom: 0.5rem;
+  }
+  
+  .faqQuestion {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+  
+  .faqAnswer {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #90ee90;
+    line-height: 1.6;
+  }
+  
+  .arrow {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+    color: #90ee90;
+  }
+  
+  .faqItem.active {
+    color: #90ee90;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .contentWrapper {
+      flex-direction: column; /* Stack image and text */
+      text-align: center; /* Center align text */
+    }
+  
+    .title {
+      font-size: 2rem;
+    }
+  
+    .paragraph {
+      font-size: 1rem;
+    }
+
+    .imageContainer {
+        height: 300px; /* Adjust height for smaller screens */
+      }
+  }
