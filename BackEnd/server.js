@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json());//passing json data from incoming http requests
 app.use(cors({
     origin:["http://localhost:3000"],
-    methods:["POST", "GET"],
+    methods:["POST", "GET", "PUT", "DELETE"],
     credentials: true
 })); //address security consern
 app.use(cookieParser());
@@ -91,6 +91,32 @@ app.get('/logout', (req, res)=> {
     res.clearCookie('token');
     return res.json({Status: "Success"});
 })
+
+app.get('/user/profile', verifyUser, (req, res) => {
+    const sql = 'SELECT name, email, phone FROM login WHERE name = ?';
+    db.query(sql, [req.name], (err, data) => {
+        if (err) {
+            return res.json({ Error: "Error fetching user data" });
+        }
+        if (data.length > 0) {
+            return res.json(data[0]); // Send user data
+        } else {
+            return res.json({ Error: "User not found" });
+        }
+    });
+});
+
+app.put('/user/profile', verifyUser, (req, res) => {
+    const { name, email, phone } = req.body;
+
+    const sql = 'UPDATE login SET name = ?, email = ?, phone = ? WHERE name = ?';
+    db.query(sql, [name, email, phone, req.name], (err, result) => {
+        if (err) {
+            return res.json({ Error: "Error updating user data" });
+        }
+        return res.json({ Status: "Profile updated successfully" });
+    });
+});
 
 
 app.listen(port, ()=>{
