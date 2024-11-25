@@ -20,22 +20,15 @@ export default function Layout() {
         }
       })
       .catch(err => console.log(err));
+      setAuth(false);
+      navigate('/');
   }, [navigate]);
 
-  const handleLogout = () => {
-    axios.get('http://localhost:5000/logout')
-      .then(res => {
-        setAuth(false);  // Update auth state in Layout
-        navigate('/');
-      })
-      .catch(err => console.log(err));
-  };
-
   return <>
-    <Navbar auth={auth} handleLogout={handleLogout}/>
+    <Navbar auth={auth}/>
     
     <div className={styles.outletWrapper}>
-      <Outlet context={{ setAuth }}/>
+      <Outlet context={{ auth, setAuth }} />
     </div>
 
     <Footer/>

@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './Login.module.css';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
+
 
 
 export default function Login() {
@@ -77,7 +78,8 @@ export default function Login() {
         <div className="row full-height justify-content-center">
           <div className="col-12 text-center align-self-center py-5">
             <div className={`${styles.section} pb-5 pt-5 pt-sm-2 text-center`}>
-              <h6 class="mb-0 pb-3">
+              <h6 className="mb-0 pb-3">
+                <span></span>
                 <span>Email</span>
                 <span>Phone number</span>
               </h6>
@@ -117,7 +119,7 @@ export default function Login() {
                                 name="password"
                                 className={`${styles.textInput}`}
                                 placeholder="Your Password"
-                                id="password"
+                                id="email-password"
                                 autoComplete="off"
                                 onBlur={emailFormik.handleBlur}
                                 onChange={emailFormik.handleChange}
@@ -138,6 +140,9 @@ export default function Login() {
                             Login
                           </button> 
                         </form>
+                        <p className={`${styles.signup}`}>
+                          Don't have an account? <Link to="/Register">Sign Up</Link>
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -175,7 +180,7 @@ export default function Login() {
                                 name="password"
                                 className={`${styles.textInput}`}
                                 placeholder="Your Password"
-                                id="password"
+                                id="phone-password"
                                 autoComplete="off"
                                 onBlur={phoneFormik.handleBlur}
                                 onChange={phoneFormik.handleChange}
@@ -197,6 +202,9 @@ export default function Login() {
                             Login
                           </button>
                         </form>
+                        <p className={`${styles.signup}`}>
+                          Don't have an account? <Link to="/Register">Sign Up</Link>
+                        </p>
                       </div>
                     </div>
                   </div>

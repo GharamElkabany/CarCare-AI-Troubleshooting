@@ -1,0 +1,143 @@
+/* Profile page styling */
+.profilePage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #293528f3;
+    background-image: url('../../assets/images/Profile.jpg');
+    background-size: 50%;
+    background-repeat: repeat;
+    background-position: center;
+    background-blend-mode: multiply;
+  }
+  
+  /* Profile container */
+  .profileContainer {
+    width: 400px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 15px;
+    padding: 30px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+  }
+  
+  /* Profile header */
+  .profileHeader {
+    margin-bottom: 20px;
+  }
+  
+  .avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    color: #333;
+    margin: 0 auto 10px;
+  }
+  
+  .profileHeader h2 {
+    font-size: 24px;
+    margin: 10px 0;
+  }
+  
+  .profileHeader p {
+    font-size: 16px;
+    color: lightgray;
+  }
+  
+  /* Profile form */
+  .profileForm {
+    margin-top: 20px;
+  }
+  
+  .profileForm label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: white;
+    text-align: left;
+  }
+  
+  .profileForm input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+    background: #333;
+    color: white;
+  }
+  
+  .profileForm input:disabled {
+    background: #555;
+  }
+  
+  .profileForm input:focus {
+    outline: none;
+    border: 1px solid #44c767;
+  }
+  
+  /* Buttons */
+  .buttonContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .saveButton,
+  .cancelButton,
+  .editButton,
+  .logoutButton {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .saveButton {
+    margin-top: 10px;
+    background: #44c767;
+    color: white;
+  }
+  
+  .cancelButton {
+    margin-top: 10px;
+    background: gray;
+    color: white;
+  }
+  
+  .editButton {
+    margin-top: 10px;
+    width: 100%;
+    background: #1f9f1f;
+    color: white;
+  }
+  
+  .logoutButton {
+    margin-top: 20px;
+    width: 100%;
+    background: rgb(200, 47, 47);
+    color: white;
+  }
+  
+  .logoutButton:hover {
+    background: darkred;
+  }
+  
+  /* Messages */
+  .errorMessage {
+    color: red;
+    font-size: 14px;
+  }
+  
+  .successMessage {
+    color: lightgreen;
+    font-size: 14px;
+  }
+  

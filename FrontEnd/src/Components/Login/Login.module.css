@@ -10,7 +10,7 @@
 }
 .section h6 span{
   padding: 0 20px;
-  margin-left: 0px;
+  margin-left: 10px;
   text-transform: uppercase;
   font-weight: 700;
   color: #00FF00;
@@ -79,7 +79,6 @@
   transform: translateX(44px) rotate(-270deg);
 }
 
-
 .card3dwrap {
   position: relative;
   width: 440px;
@@ -135,7 +134,6 @@
   z-index: 20;
   display: block;
 }
-
 
 .formgroup{ 
   position: relative;
@@ -361,4 +359,27 @@
   
   .textInputWrapper:focus-within .textInput::placeholder {
     opacity: 0;
+  }
+
+  .signup {
+    color: #fff;
+    margin-top: 20px;
+  }
+  
+  .signup a {
+    color: #00FF00;
+    text-decoration: none;
+  }
+  
+  .signup a:hover {
+    color: #00FF00;
+    text-decoration: underline;
+  }
+  
+  .cardfront .signup,
+  .cardback .signup {
+    position: absolute; /* Ensure it appears on top */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%; /* Adjust width if needed */
   }

@@ -7,19 +7,15 @@ import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
   let navigate = useNavigate();
-  const [isloading, setisloading] = useState(false);
 
   function handleRegister(values) {
-    setisloading(true);
     axios
       .post("http://localhost:5000/register", values)
       .then((res) => {
         if (res.data.Status === "Success") {
-          setisloading(false);
           navigate("/login");
         } else {
           alert(res.data.Error);
-          setisloading(true);
         }
       })
       .then((err) => console.log(err));

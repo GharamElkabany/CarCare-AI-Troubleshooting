@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import Layout from './Components/Layout/Layout';
 import Home from './Components/Home/Home';
@@ -9,6 +8,7 @@ import Diagnostics from './Components/Diagnostics/Diagnostics';
 import Register from './Components/Register/Register';
 import Login from './Components/Login/Login';
 import Welcome from './Components/Welcome/Welcome';
+import Profile from './Components/Profile/Profile';
 import NotFound from './Components/NotFound/NotFound';
 
 import {createBrowserRouter, RouterProvider} from 'react-router-dom';
@@ -26,6 +26,7 @@ function App() {
       {path:'login', element:<Login/>},
       {path:'register', element:<Register/>},
       {path:'home',element:<Home/>},
+      {path:'profile',element:<Profile/>},
       {path:'*', element:<NotFound/>},
     ]}
   ])
