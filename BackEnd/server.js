@@ -118,6 +118,43 @@ app.put('/user/profile', verifyUser, (req, res) => {
     });
 });
 
+app.put('/user/change-password', verifyUser, (req, res) => {
+    const { currentPassword, newPassword } = req.body;
+
+    const sqlGetPassword = 'SELECT password FROM login WHERE name = ?';
+    const sqlUpdatePassword = 'UPDATE login SET password = ? WHERE name = ?';
+
+    // Fetch the current password from the database
+    db.query(sqlGetPassword, [req.name], (err, data) => {
+        if (err) {
+            return res.json({ Error: "Error fetching user password" });
+        }
+
+        if (data.length > 0) {
+            // Compare the provided current password with the stored password
+            bcrypt.compare(currentPassword, data[0].password, (err, response) => {
+                if (err) return res.json({ Error: "Password comparison error" });
+                if (response) {
+                    // Hash the new password
+                    bcrypt.hash(newPassword, salt, (err, hashedPassword) => {
+                        if (err) return res.json({ Error: "Error hashing new password" });
+
+                        // Update the password in the database
+                        db.query(sqlUpdatePassword, [hashedPassword, req.name], (err, result) => {
+                            if (err) return res.json({ Error: "Error updating password" });
+                            return res.json({ Status: "Password updated successfully" });
+                        });
+                    });
+                } else {
+                    return res.json({ Error: "Current password is incorrect" });
+                }
+            });
+        } else {
+            return res.json({ Error: "User not found" });
+        }
+    });
+});
+
 
 app.listen(port, ()=>{
     console.log('listening')

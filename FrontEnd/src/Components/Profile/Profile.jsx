@@ -108,6 +108,15 @@ export default function Profile() {
             disabled={!editing}
           />
 
+          <p
+            className={styles.changePasswordLink}
+            onClick={() => navigate('/changePassword')}
+          >
+            Change Password
+          </p>
+
+          <hr className={styles.solid}></hr>
+
           <div className={styles.buttonContainer}>
             {editing ? (
               <>
@@ -134,50 +143,5 @@ export default function Profile() {
         
       </div>
     </div>
-
-{/* <div className={`${styles.profileContainer}`}>
-            <h2>User Profile</h2>
-            {errorMessage && <p className={`${styles.errorMessage}`}>{errorMessage}</p>}
-            {successMessage && <p className={`${styles.successMessage}`}>{successMessage}</p>}
-
-            <div className={`${styles.profileForm}`}>
-                <label>Name:</label>
-                <input
-                    type="text"
-                    name="name"
-                    value={editing ? updatedData.name : userData.name}
-                    onChange={handleInputChange}
-                    disabled={!editing}
-                />
-
-                <label>Email:</label>
-                <input
-                    type="email"
-                    name="email"
-                    value={editing ? updatedData.email : userData.email}
-                    onChange={handleInputChange}
-                    disabled={!editing}
-                />
-
-                <label>Phone:</label>
-                <input
-                    type="text"
-                    name="phone"
-                    value={editing ? updatedData.phone : userData.phone}
-                    onChange={handleInputChange}
-                    disabled={!editing}
-                />
-
-                {editing ? (
-                    <>
-                        <button onClick={handleSave}>Save</button>
-                        <button onClick={() => setEditing(false)}>Cancel</button>
-                    </>
-                ) : (
-                    <button onClick={() => setEditing(true)}>Edit Profile</button>
-                )}
-            </div>
-        </div> */}
-    
   </>
 }
