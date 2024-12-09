@@ -1,1 +1,42 @@
-.NotFound {}
+.cont-404 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #447241;
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .cont-404 img {
+    max-width: 60%; 
+    height: auto; 
+    margin-bottom: 20px;
+  }
+  
+  .cont-404 button {
+    background-color: #40b940;
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .cont-404 button:hover {
+    background-color: #36a636;
+  }
+  
+  @media (max-width: 600px) {
+    .cont-404 img {
+      max-width: 100%;
+    }
+  
+    .cont-404 button {
+      font-size: 14px;
+      padding: 8px 16px;
+    }
+  }

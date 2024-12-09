@@ -381,5 +381,19 @@
     position: absolute; /* Ensure it appears on top */
     left: 50%;
     transform: translateX(-50%);
-    width: 100%; /* Adjust width if needed */
+    width: 100%; 
+  }
+
+  .forgotPassword a {
+    font-size: 13px; 
+    color: #11f711 ;
+    position: absolute;
+    right: 45px;
+    top: 183px;
+    text-decoration: none;
+  }
+  
+  .forgotPassword:hover a:hover {
+    color: #30ff30; 
+    text-decoration: underline; 
   }

@@ -28,10 +28,10 @@ function App() {
       {path:'register', element:<Register/>},
       {path:'home',element:<Home/>},
       {path:'profile',element:<Profile/>},
-      {path:'changePassword',element:<ChangePassword/>},
-      {path:'*', element:<NotFound/>},
-    ]}
-  ])
+      {path:'changePassword',element:<ChangePassword/>}
+    ]},
+    {path:'*', element:<NotFound/>}
+  ]);
 
   return <>
     <div className='main-content' style={{backgroundColor:'#76AB79'}}>

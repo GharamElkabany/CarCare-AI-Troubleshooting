@@ -129,6 +129,11 @@ export default function Login() {
                             {emailFormik.touched.password && emailFormik.errors.password && (
                               <div className={`${styles.customAlert} alert alert-danger`}>{emailFormik.errors.password}</div>
                             )}
+
+                            {/* Forget Password Link */}
+                            <p className={styles.forgotPassword}>
+                              <Link to="/ForgetPassword">Forgot Password?</Link>
+                            </p>
                             
                           </div> 
 
@@ -191,6 +196,11 @@ export default function Login() {
                               {phoneFormik.touched.password && phoneFormik.errors.password && (
                                 <div className={`${styles.customAlert} alert alert-danger`}>{phoneFormik.errors.password}</div>
                               )}
+
+                              {/* Forget Password Link */}
+                              <p className={styles.forgotPassword}>
+                                <Link to="/ForgetPassword">Forgot Password?</Link>
+                              </p>
                             
                           </div>  
 
