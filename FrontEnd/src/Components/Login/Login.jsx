@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
+import jwt_decode from 'jwt-decode';
 
 
 
@@ -25,17 +26,24 @@ export default function Login() {
 
   function handleLogin(values)
   {
-    axios.post('http://localhost:5000/login',values)
+    axios.post('http://localhost:5000/login', values)
     .then(res => {
-      if (res.data.Status === 'Success'){
+      if (res.data.Status === 'Success') {
+        const token = res.data.token; // Assuming token is returned
+        const userRole = res.data.role; // Assuming role is returned
+
+        // Store token and role in localStorage
+        localStorage.setItem('token', token);
+        localStorage.setItem('role', userRole);
+
+        // Redirect to home
         navigate('/home');
       } else {
         alert(res.data.Error);
       }
     })
-    .then(err => console.log(err));
-
-  }
+    .catch(err => console.log(err));
+}
 
   let emailvalidationSchema = Yup.object({
     email :Yup.string().required('Email is required').email('Email is invalid'),

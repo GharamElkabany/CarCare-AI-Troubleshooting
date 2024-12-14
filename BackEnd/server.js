@@ -73,10 +73,10 @@ app.post('/login', (req, res)=>{
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
                 if(err)return res.json({Error: "Password compare error"});
                 if(response) {
-                    const name = data[0].name;
-                    const token = jwt.sign({name}, "jwt-secret-key", {expiresIn: '1d'});
+                    const { name, role } = data[0];
+                    const token = jwt.sign({ name, role }, "jwt-secret-key", {expiresIn: '1d'});
                     res.cookie('token', token);
-                    return res.json({Status: "Success"});
+                    return res.json({Status: "Success", role});
                 } else {
                     return res.json({Error: "Password not matched"});
                 }

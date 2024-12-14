@@ -16,9 +16,11 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 
 
 function App() {
+  const auth = localStorage.getItem('token') ? true : false; 
+  const role = localStorage.getItem('role');
 
   let routers = createBrowserRouter([
-    {path:'', element:<Layout/>, children:[
+    {path:'', element:<Layout role={role}/>, children:[
       {index:true, element:<Welcome/>},
       {path:'about', element:<About/>},
       {path:'faq', element:<Faq/>},

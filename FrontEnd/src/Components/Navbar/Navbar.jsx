@@ -5,13 +5,14 @@ import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 
-export default function Navbar({ auth }) {
+export default function Navbar({ auth, role }) {
+
 
   return <>
-    
+
     <nav className={`navbar navbar-expand-sm navbar-light bg-dark text-muted-white ${styles.fixedNavbar}`}>
       <div className="container">
-        <HashLink className="navbar-brand" to="/">
+        <HashLink className="navbar-brand" to="/home#home">
           <img src={logo} alt="" />
         </HashLink>
         <button
@@ -76,6 +77,17 @@ export default function Navbar({ auth }) {
               </li>
             </>
             }
+
+            {auth && role === 'admin' && (
+              <>
+                <li className="nav-item mx-3">
+                  <Link className="nav-link text-muted-white" to="/admin">Users</Link>
+                </li>
+                <li className="nav-item mx-3">
+                  <Link className="nav-link text-muted-white"  to="/admin/users">Feedbacks</Link>
+                </li>
+              </>
+            )}
             
           </ul>
 

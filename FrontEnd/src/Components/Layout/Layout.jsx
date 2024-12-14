@@ -5,7 +5,7 @@ import Footer from '../Footer/Footer';
 import { Outlet, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-export default function Layout() {
+export default function Layout({ role }) {
   const [auth, setAuth] = useState(false);
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ export default function Layout() {
   }, [navigate]);
 
   return <>
-    <Navbar auth={auth}/>
+    <Navbar auth={auth} role={role}/>
     
     <div className={styles.outletWrapper}>
       <Outlet context={{ auth, setAuth }} />
