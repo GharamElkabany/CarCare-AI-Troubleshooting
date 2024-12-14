@@ -5,6 +5,9 @@ body, html {
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
 /* Ensure main content container grows to push the footer down */
 #root {
   display: flex;

@@ -31,7 +31,7 @@ export default function Home() {
   }, [setAuth])
 
   return <>
-    <div className={styles.homeContainer}>
+    <div id="home" className={styles.homeContainer}>
       <div className={styles.heroSection}>
         <h1 className={styles.heroTitle}>Empower Your Car Maintenance</h1>
         <p className={styles.heroSubtitle}>Diagnose and Fix Car Issues with Ease</p>
@@ -41,8 +41,17 @@ export default function Home() {
       </div>
     </div>
 
-    <About/>
-    <Faq/>
-    <Feedback/>
+    <div id="about">
+      <About/>
+    </div>
+    
+    <div id="faq">
+      <Faq/>
+    </div>
+    
+    <div id="feedback">
+      <Feedback/>
+    </div>
+    
   </>
 }

@@ -1,18 +1,19 @@
-import React from 'react'
+import React from 'react';
 import styles from './Navbar.module.css';
-import logo from '../../assets/images/logo.png'
+import logo from '../../assets/images/logo.png';
 import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 
 export default function Navbar({ auth }) {
 
   return <>
     
-    <nav className="navbar navbar-expand-sm navbar-light bg-dark text-muted-white">
+    <nav className={`navbar navbar-expand-sm navbar-light bg-dark text-muted-white ${styles.fixedNavbar}`}>
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <HashLink className="navbar-brand" to="/">
           <img src={logo} alt="" />
-        </Link>
+        </HashLink>
         <button
           className="navbar-toggler d-lg-none"
           type="button"
@@ -30,19 +31,48 @@ export default function Navbar({ auth }) {
             {auth &&
             <>
               <li className="nav-item mx-3">
-                <Link className="nav-link text-muted-white" to="/home">Home</Link>
+                <HashLink
+                   smooth
+                   className="nav-link text-muted-white" 
+                   to="/home#home">
+                  Home
+                </HashLink>
               </li>
+
               <li className="nav-item mx-3">
-                <Link className="nav-link text-muted-white" to="/about">About Us</Link>
+                <HashLink 
+                   smooth
+                   className="nav-link text-muted-white" 
+                   to="/home#about">
+                  About Us
+                </HashLink>
               </li>
+
               <li className="nav-item mx-3">
-                <Link className="nav-link text-muted-white" to="/faq">FAQ</Link>
+                <HashLink 
+                  smooth
+                  className="nav-link text-muted-white" 
+                  to="/home#faq">
+                 FAQ
+                </HashLink>
               </li>
+
               <li className="nav-item mx-3">
-                <Link className="nav-link text-muted-white" to="/feedback">Feedback</Link>
+                <HashLink 
+                   smooth
+                   className="nav-link text-muted-white" 
+                   to="/home#feedback">
+                  Feedback
+                </HashLink>
               </li>
+
               <li className="nav-item mx-3">
-                <Link className="nav-link text-muted-white" to="/diagnostics">AI Diagnostics</Link>
+                <HashLink 
+                   smooth
+                   className="nav-link text-muted-white" 
+                   to="/diagnostics">
+                  AI Diagnostics
+                </HashLink>
               </li>
             </>
             }

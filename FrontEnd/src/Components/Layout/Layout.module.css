@@ -4,3 +4,6 @@
     margin: 0;
     overflow-x: hidden;
 }
+.outletWrapper {
+    margin-top: 67.5px; /* Adjust based on the navbar's height */
+  }
