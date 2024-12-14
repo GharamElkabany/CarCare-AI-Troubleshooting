@@ -5,21 +5,20 @@ import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useEffect } from 'react';
-import jwt_decode from 'jwt-decode';
 
 
 
-export default function Login() {
+export default function Login({ setAuth, setRole }) {
   let navigate = useNavigate();
-
-  useEffect(() => {
-    emailFormik.resetForm(); // Reset email form
-    phoneFormik.resetForm(); // Reset phone form
-  }, []);
 
   useEffect(() => {
     localStorage.clear();
     sessionStorage.clear();
+  }, []);
+
+  useEffect(() => {
+    emailFormik.resetForm(); // Reset email form
+    phoneFormik.resetForm(); // Reset phone form
   }, []);
 
   axios.defaults.withCredentials = true;
@@ -29,12 +28,16 @@ export default function Login() {
     axios.post('http://localhost:5000/login', values)
     .then(res => {
       if (res.data.Status === 'Success') {
-        const token = res.data.token; // Assuming token is returned
-        const userRole = res.data.role; // Assuming role is returned
+        console.log(res.data.role);
+        const token = res.data.token; 
+        const userRole = res.data.role; 
 
         // Store token and role in localStorage
         localStorage.setItem('token', token);
         localStorage.setItem('role', userRole);
+
+        setAuth(true);
+        setRole(userRole);
 
         // Redirect to home
         navigate('/home');
@@ -43,7 +46,7 @@ export default function Login() {
       }
     })
     .catch(err => console.log(err));
-}
+};
 
   let emailvalidationSchema = Yup.object({
     email :Yup.string().required('Email is required').email('Email is invalid'),

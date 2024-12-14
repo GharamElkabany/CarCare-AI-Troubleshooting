@@ -12,9 +12,9 @@ export default function Navbar({ auth, role }) {
 
     <nav className={`navbar navbar-expand-sm navbar-light bg-dark text-muted-white ${styles.fixedNavbar}`}>
       <div className="container">
-        <HashLink className="navbar-brand" to="/home#home">
+        
           <img src={logo} alt="" />
-        </HashLink>
+        
         <button
           className="navbar-toggler d-lg-none"
           type="button"
@@ -57,15 +57,18 @@ export default function Navbar({ auth, role }) {
                  FAQ
                 </HashLink>
               </li>
-
-              <li className="nav-item mx-3">
-                <HashLink 
-                   smooth
-                   className="nav-link text-muted-white" 
-                   to="/home#feedback">
-                  Feedback
-                </HashLink>
-              </li>
+              
+              {role === 'user' && (
+                <>
+                  <li className="nav-item mx-3">
+                    <HashLink 
+                      smooth
+                      className="nav-link text-muted-white" 
+                      to="/home#feedback">
+                      Feedback
+                    </HashLink>
+                  </li>
+                </>)}  
 
               <li className="nav-item mx-3">
                 <HashLink 
@@ -81,10 +84,10 @@ export default function Navbar({ auth, role }) {
             {auth && role === 'admin' && (
               <>
                 <li className="nav-item mx-3">
-                  <Link className="nav-link text-muted-white" to="/admin">Users</Link>
+                  <Link className="nav-link text-muted-white" to="/adminUsers">Users</Link>
                 </li>
                 <li className="nav-item mx-3">
-                  <Link className="nav-link text-muted-white"  to="/admin/users">Feedbacks</Link>
+                  <Link className="nav-link text-muted-white"  to="/adminFeedbacks">Feedbacks</Link>
                 </li>
               </>
             )}

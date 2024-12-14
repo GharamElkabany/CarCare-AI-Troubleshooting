@@ -37,6 +37,7 @@ const verifyUser = (req, res, next) => {
                 return res.json({Error: "Token is not okay"});
             } else {
                 req.name = decoded.name;
+                req.role = decoded.role;
                 next();
             }
         })
@@ -44,7 +45,7 @@ const verifyUser = (req, res, next) => {
 }
 
 app.get('/', verifyUser, (req, res) => {
-    return res.json({Status: "Success", name:req.name});
+    return res.json({Status: "Success", Name:req.name, Role:req.role});
 })
 
 app.post('/register', (req, res)=>{

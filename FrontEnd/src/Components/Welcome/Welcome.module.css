@@ -2,7 +2,7 @@
     background-image: url('../../assets/images/welcomebg.jpg');
     background-size: cover;
     background-position: center;
-    min-height: 68vh; 
+    min-height: 70vh; 
     display: flex;
     justify-content: center;
     align-items: center;
