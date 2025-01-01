@@ -193,6 +193,41 @@ app.get('/feedbacks', verifyUser, (req, res) => {
     });
 });
 
+app.get('/about', (req, res) => {
+    const query = 'SELECT id, text FROM about';
+  db.query(query, (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Error fetching About Us text.' });
+    }
+    if (result.length > 0) {
+        return res.json({ Status: 'Success', aboutText: result });
+    } else {
+        return res.json({ Status: 'Error', Error: 'No About Us content found.' });
+    }
+  });
+});
+
+app.put('/about', (req, res) => {
+    const { id, text } = req.body;
+  if (!id || !text) {
+    return res.status(400).json({ message: 'Text is required.' });
+  }
+
+  const query = 'UPDATE about SET text = ? WHERE id = ?';
+  db.query(query, [text, id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Error saving About Us text.' });
+    }
+    if (result.affectedRows > 0) {
+        return res.json({ Status: 'Success', Message: 'About Us content updated successfully.' });
+    } else {
+        return res.json({ Status: 'Error', Error: 'No row found with the given id.' });
+    }
+  });
+});
+
 app.listen(port, ()=>{
     console.log('listening')
 })

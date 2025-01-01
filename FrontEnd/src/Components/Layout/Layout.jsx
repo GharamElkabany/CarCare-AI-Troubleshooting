@@ -28,7 +28,7 @@ export default function Layout({ role }) {
     <Navbar auth={auth} role={role}/>
     
     <div className={styles.outletWrapper}>
-      <Outlet context={{ auth, setAuth }} />
+      <Outlet context={{ auth, setAuth, role }} />
     </div>
 
     <Footer/>
