@@ -29,7 +29,7 @@ export default function Navbar({ auth, role }) {
         <div className="collapse navbar-collapse" id="collapsibleNavId">
           <ul className="navbar-nav me-auto mt-2 mt-lg-0 ms-5">
             
-            {auth &&
+            {auth && role === 'user' && (
             <>
               <li className="nav-item mx-3">
                 <HashLink
@@ -39,7 +39,22 @@ export default function Navbar({ auth, role }) {
                   Home
                 </HashLink>
               </li>
+            </>)} 
+            {auth && role === 'admin' && (
+            <>
+              <li className="nav-item mx-3">
+                <HashLink
+                   smooth
+                   className="nav-link text-muted-white" 
+                   to="/home#home">
+                  Dashboard
+                </HashLink>
+              </li>
+            </>)} 
 
+              
+            {auth &&
+            <>
               <li className="nav-item mx-3">
                 <HashLink 
                    smooth

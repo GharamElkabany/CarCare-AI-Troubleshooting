@@ -1,1 +1,125 @@
-.AdminFeedbacks {}
+.FeedbacksPage {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 120vh; /* Adjust for navbar and footer height */
+        font-family: Arial, sans-serif;
+        background-color: #293528;
+        background-image: url("../../assets/images/Profile.jpg");
+        background-size: 50%;
+        background-repeat: repeat;
+        background-position: center;
+        background-blend-mode: multiply;
+        color: #fff;
+        overflow-y: auto; /* Enable scrolling within this container */
+        padding: 20px;
+}
+
+.feedbackContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #1e1e1ecf;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  border-radius: 10px;
+  width: 60%;
+  margin-top: 30px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.feedbackContainer h2 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.feedbackCard {
+  background-color: #1e1e1ecf;
+  padding: 15px 20px;
+  margin: 10px 0;
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.feedbackCard h4 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: bold;
+  color: #2d9c39;
+}
+
+.feedbackCard p {
+  margin: 10px 0;
+  color: #fff;
+}
+
+.feedbackCard span {
+  font-size: 12px;
+  color: #ccc;
+  text-align: right;
+  align-self: flex-end;
+}
+
+.searchBar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.searchBar input {
+  width: 250px;
+  padding: 8px 12px;
+  border: 1px solid #2d9c39;
+  border-radius: 5px;
+  outline: none;
+  margin-right: 10px;
+}
+
+.searchBar button {
+  padding: 8px 15px;
+  background-color: #2d9c39;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.searchBar button:hover {
+  background-color: #26b337;
+}
+
+.pagination {
+  margin: 20px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.paginationButton {
+  padding: 8px 15px;
+  margin: 0 10px;
+  background-color: #1e1e1e;
+  color: #fff;
+  border: 1px solid #2d9c39;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.paginationButton:hover {
+  background-color: #2d9c39;
+}
+
+.activePage {
+  background-color: #2d9c39;
+  color: #fff;
+  font-weight: bold;
+  border: none;
+}

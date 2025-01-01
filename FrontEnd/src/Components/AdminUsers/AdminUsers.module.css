@@ -1,1 +1,198 @@
-.AdminUsers {}
+.UsersPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #293528;
+    background-image: url('../../assets/images/Profile.jpg');
+    background-size: 50%;
+    background-repeat: repeat;
+    background-position: center;
+    background-blend-mode: multiply;
+    color: #fff;
+  }
+
+  .tableContainer {
+    width: 90%;
+    margin: 20px auto;
+    background-color: #1e1e1ecf;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+  }
+
+  .headerContainer {
+    padding: 25px 25px 0px 22px;
+    display: flex;
+    justify-content: space-between; /* Push items to edges */
+    align-items: center; /* Vertically align to center */
+    margin-bottom: 20px; /* Space below header */
+  }
+
+  .pageTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    margin: 0px;
+  }
+  
+  .userTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .userTable thead tr{
+    color: #2d9c39;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .userTable th, .userTable td {
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .userTable tbody tr:nth-child(odd) {
+    background-color: #252525;
+  }
+  
+  .userTable tbody tr:nth-child(even) {
+    background-color: #1e1e1e;
+  }
+  
+  /* .userTable tbody tr:hover {
+    background-color: #2d9c39;
+    color: #fff;
+  } */
+  
+  .viewButton {
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .viewButton:hover {
+    color: #2d9c39;
+  }
+  
+  .pagination {
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+  }
+  
+  .paginationButton {
+    padding: 8px 15px;
+    margin: 0 20px;
+    background-color: #1e1e1e;
+    color: #fff;
+    border: 1px solid #2d9c39;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .paginationButton:hover {
+    background-color: #2d9c39;
+    color: #fff;
+  }
+  
+  /* .paginationButton:disabled {
+    background-color: #ddd;
+    color: #aaa;
+    cursor: not-allowed;
+  } */
+  
+  .activePage {
+    background-color: #2d9c39;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+  }
+
+  .addButton {
+    padding: 15px 20px;
+    background-color: #2d9c39;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  
+  .addButton:hover {
+    background-color: #26b337;
+  }
+  
+  /* Modal Styles */
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 350px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .modalContent h3 {
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .modalContent input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .modalActions {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .submitButton,
+  .cancelButton {
+    padding: 8px 12px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .submitButton {
+    background-color: #2d9c39;
+    color: #fff;
+  }
+  
+  .cancelButton {
+    background-color: #e74c3c;
+    color: #fff;
+  }
+  
+  .submitButton:hover {
+    background-color: #26b337;
+  }
+  
+  .cancelButton:hover {
+    background-color: #c0392b;
+  }

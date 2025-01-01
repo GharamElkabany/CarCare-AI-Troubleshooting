@@ -36,8 +36,10 @@ const verifyUser = (req, res, next) => {
             if(err) {
                 return res.json({Error: "Token is not okay"});
             } else {
+                console.log("Decoded Token:", decoded);
                 req.name = decoded.name;
                 req.role = decoded.role;
+                req.user_id = decoded.id;
                 next();
             }
         })
@@ -74,10 +76,11 @@ app.post('/login', (req, res)=>{
             bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
                 if(err)return res.json({Error: "Password compare error"});
                 if(response) {
-                    const { name, role } = data[0];
-                    const token = jwt.sign({ name, role }, "jwt-secret-key", {expiresIn: '1d'});
+                    const { id, name, role } = data[0];
+                    const token = jwt.sign({ id, name, role }, "jwt-secret-key", {expiresIn: '1d'});
                     res.cookie('token', token);
                     return res.json({Status: "Success", role});
+                    console.log("JWT Payload:", { id, name, role });
                 } else {
                     return res.json({Error: "Password not matched"});
                 }
@@ -87,6 +90,16 @@ app.post('/login', (req, res)=>{
         }
     })
 })
+
+app.get('/users', verifyUser, (req, res) => {
+    const sql = 'SELECT id, name, email, phone, role FROM login WHERE role = "user"';
+    db.query(sql, (err, data) => {
+        if (err) {
+            return res.json({ Error: "Error fetching users" });
+        }
+        return res.json(data); // Send filtered user data
+    });
+});
 
 app.get('/logout', (req, res)=> {
     res.clearCookie('token');
@@ -156,6 +169,29 @@ app.put('/user/change-password', verifyUser, (req, res) => {
     });
 });
 
+app.post('/feedback', verifyUser, (req, res) => {
+    const sql = "INSERT INTO feedback (user_id, rating, feedback) VALUES (?, ?, ?)";
+    const values = [req.user_id, req.body.rating, req.body.feedback];
+    console.log(req.user_id);
+    console.log("SQL Query: ", sql, values);
+    db.query(sql, values, (err, result) => {
+        if (err) return res.json({ Error: "Error saving feedback" });
+        return res.json({ Status: "Feedback saved successfully" });
+    });
+});
+
+app.get('/feedbacks', verifyUser, (req, res) => {
+    if (req.role !== 'admin') return res.json({ Error: "Unauthorized access" });
+
+    const sql = `SELECT f.id, l.name, f.rating, f.feedback, f.timestamp 
+                 FROM feedback f
+                 JOIN login l ON f.user_id = l.id
+                 ORDER BY f.timestamp DESC`;
+    db.query(sql, (err, data) => {
+        if (err) return res.json({ Error: "Error fetching feedbacks" });
+        return res.json(data);
+    });
+});
 
 app.listen(port, ()=>{
     console.log('listening')
