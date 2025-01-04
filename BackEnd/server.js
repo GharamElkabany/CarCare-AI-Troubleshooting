@@ -228,6 +228,50 @@ app.put('/about', (req, res) => {
   });
 });
 
+// Get all FAQs
+app.get('/faqs', (req, res) => {
+    db.query('SELECT * FROM faqs', (err, results) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to fetch FAQs' });
+        }
+        res.json(results);
+    });
+});
+
+// Add a new FAQ
+app.post('/faqs', (req, res) => {
+    const { question, answer } = req.body;
+    db.query('INSERT INTO faqs (question, answer) VALUES (?, ?)', [question, answer], (err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to add FAQ' });
+        }
+        res.json({ message: 'FAQ added successfully' });
+    });
+});
+
+// Update an FAQ
+app.put('/faqs/:id', (req, res) => {
+    const { id } = req.params;
+    const { question, answer } = req.body;
+    db.query('UPDATE faqs SET question = ?, answer = ? WHERE id = ?', [question, answer, id], (err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to update FAQ' });
+        }
+        res.json({ message: 'FAQ updated successfully' });
+    });
+});
+
+// Delete an FAQ
+app.delete('/faqs/:id', (req, res) => {
+    const { id } = req.params;
+    db.query('DELETE FROM faqs WHERE id = ?', [id], (err) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to delete FAQ' });
+        }
+        res.json({ message: 'FAQ deleted successfully' });
+    });
+});
+
 app.listen(port, ()=>{
     console.log('listening')
 })

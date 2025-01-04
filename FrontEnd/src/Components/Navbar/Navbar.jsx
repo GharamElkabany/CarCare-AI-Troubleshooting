@@ -64,17 +64,25 @@ export default function Navbar({ auth, role }) {
                 </HashLink>
               </li>
 
-              <li className="nav-item mx-3">
-                <HashLink 
-                  smooth
-                  className="nav-link text-muted-white" 
-                  to="/home#faq">
-                 FAQ
-                </HashLink>
-              </li>
+              {role === 'admin' && (
+                <>
+                  <li className="nav-item mx-3">
+                    <Link className="nav-link text-muted-white" to="/adminFaq">FAQ</Link>
+                  </li>
+                </>
+              )}
               
               {role === 'user' && (
                 <>
+                  <li className="nav-item mx-3">
+                    <HashLink 
+                      smooth
+                      className="nav-link text-muted-white" 
+                      to="/home#faq">
+                    FAQ
+                    </HashLink>
+                  </li>
+
                   <li className="nav-item mx-3">
                     <HashLink 
                       smooth

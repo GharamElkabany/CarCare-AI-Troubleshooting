@@ -14,8 +14,9 @@ import ChangePassword from "./Components/ChangePassword/ChangePassword";
 import AdminUsers from "./Components/AdminUsers/AdminUsers";
 import AdminFeedbacks from "./Components/AdminFeedbacks/AdminFeedbacks";
 import NotFound from "./Components/NotFound/NotFound";
-
+import AdminFaq from "./Components/AdminFaq/AdminFaq";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
 
 function App() {
   const [auth, setAuth] = useState(
@@ -43,6 +44,7 @@ function App() {
         { path: "changePassword", element: <ChangePassword /> },
         { path: "adminUsers", element: <AdminUsers /> },
         { path: "adminFeedbacks", element: <AdminFeedbacks /> },
+        { path: "adminFaq", element: <AdminFaq /> },
       ],
     },
     { path: "*", element: <NotFound /> },

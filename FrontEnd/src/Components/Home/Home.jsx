@@ -5,8 +5,10 @@ import { Link, useOutletContext } from "react-router-dom";
 import About from "../About/About";
 import Faq from "../Faq/Faq";
 import Feedback from "../Feedback/Feedback";
+import AdminFaq from "../AdminFaq/AdminFaq";
 
 export default function Home() {
+  const { role } = useOutletContext();
   const { setAuth } = useOutletContext();
   const [auth, setLocalAuth] = useState(false);
   const [message, setMessage] = useState("");
@@ -52,11 +54,15 @@ export default function Home() {
       </div>
 
       <div id="faq">
-        <Faq />
+        {role === "user" && (
+          <Faq />          
+        )}
       </div>
 
       <div id="feedback">
-        <Feedback />
+        {role === "user" && (
+            <Feedback />          
+        )}
       </div>
     </>
   );
