@@ -15,6 +15,7 @@ import AdminUsers from "./Components/AdminUsers/AdminUsers";
 import AdminFeedbacks from "./Components/AdminFeedbacks/AdminFeedbacks";
 import NotFound from "./Components/NotFound/NotFound";
 import AdminFaq from "./Components/AdminFaq/AdminFaq";
+import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 
@@ -45,6 +46,7 @@ function App() {
         { path: "adminUsers", element: <AdminUsers /> },
         { path: "adminFeedbacks", element: <AdminFeedbacks /> },
         { path: "adminFaq", element: <AdminFaq /> },
+        { path: "adminDashboard", element: <AdminDashboard /> },
       ],
     },
     { path: "*", element: <NotFound /> },

@@ -22,6 +22,11 @@ export default function Profile() {
   });
 
   useEffect(() => {
+    // Scroll to the top when the component is mounted
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []);
+
+  useEffect(() => {
     // Fetch user profile data
     axios
       .get("http://localhost:5000/user/profile", { withCredentials: true })

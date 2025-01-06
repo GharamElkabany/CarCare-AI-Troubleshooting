@@ -1,0 +1,71 @@
+/* General Container Styling */
+.dashboardContainer {
+    margin-top: 1px;
+    padding: 3rem;
+    background-image: url('../../assets/images/homebg.jpg');
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+  }
+  
+  /* Title Styling */
+  .title {
+    font-size: 2.5rem;
+    text-align: center;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    max-width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    animation: fadeIn 1.5s ease-in-out;
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Grid Layout for Cards */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem;
+  }
+  
+  /* Card Styling */
+  .card {
+    background-color: #ffffffe2;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    color: black;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Responsive Adjustments */
+  @media (max-width: 768px) {
+    .dashboardContainer {
+      padding: 1rem;
+    }
+  
+    .title {
+      font-size: 1.5rem;
+    }
+  }

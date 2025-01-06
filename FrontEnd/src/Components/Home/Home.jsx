@@ -5,7 +5,7 @@ import { Link, useOutletContext } from "react-router-dom";
 import About from "../About/About";
 import Faq from "../Faq/Faq";
 import Feedback from "../Feedback/Feedback";
-import AdminFaq from "../AdminFaq/AdminFaq";
+import AdminDashboard from "../AdminDashboard/AdminDashboard";
 
 export default function Home() {
   const { role } = useOutletContext();
@@ -35,17 +35,27 @@ export default function Home() {
 
   return (
     <>
-      <div id="home" className={styles.homeContainer}>
-        <div className={styles.heroSection}>
-          <h1 className={styles.heroTitle}>Empower Your Car Maintenance</h1>
-          <p className={styles.heroSubtitle}>
-            Diagnose and Fix Car Issues with Ease
-          </p>
-          <Link to="/diagnostics">
-            <button className={styles.heroButton}>
-              Chat with our AI Diagnostic Now
-            </button>
-          </Link>
+      {role === "user" && (
+        <div id="home" className={styles.homeContainer} style={{ paddingTop: '55px', marginTop: '-55px' }}>
+          <div className={styles.heroSection}>
+            <h1 className={styles.heroTitle}>Empower Your Car Maintenance</h1>
+            <p className={styles.heroSubtitle}>
+              Diagnose and Fix Car Issues with Ease
+            </p>
+            <Link to="/diagnostics">
+              <button className={styles.heroButton}>
+                Chat with our AI Diagnostic Now
+              </button>
+            </Link>
+          </div>
+        </div>
+      )}
+
+      <div id="adminDashnoard" style={{ paddingTop: '70px', marginTop: '-70px' }}>
+        <div>
+          {role === "admin" && (
+            <AdminDashboard />          
+          )}
         </div>
       </div>
 

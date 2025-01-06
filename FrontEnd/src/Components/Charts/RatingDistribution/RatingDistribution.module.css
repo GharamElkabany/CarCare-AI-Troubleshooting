@@ -1,0 +1,10 @@
+.container {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }

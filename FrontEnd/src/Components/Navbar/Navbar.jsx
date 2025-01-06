@@ -46,7 +46,7 @@ export default function Navbar({ auth, role }) {
                 <HashLink
                    smooth
                    className="nav-link text-muted-white" 
-                   to="/home#home">
+                   to="/home#adminDashnoard">
                   Dashboard
                 </HashLink>
               </li>

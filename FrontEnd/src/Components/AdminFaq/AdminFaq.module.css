@@ -62,20 +62,34 @@
     background-color: #76d976;
   }
 
-  .editButton {
-    padding: 0.5rem 1.6rem; /* Smaller size to match Delete button */
+  .editButton,
+  .deleteButton {
+    padding: 0.5rem 1rem;
     font-size: 1rem;
-    margin-bottom: 10px;
-    color: #000000;
-    background-color: #70c070; /* White background */
-    border: none; /* Optional border for contrast */
     border-radius: 5px;
+    border: none;
     cursor: pointer;
+    width: 85px;
     transition: background-color 0.3s ease;
   }
-  
+
+  .editButton {
+    background-color: #70c070;
+    color: #000000;
+  }
+
   .editButton:hover {
-    background-color: #76d976; /* Slightly lighter background on hover */
+    background-color: #76d976;
+  }
+
+  .deleteButton {
+    margin-top: 10px;
+    background-color: #ff4d4d;
+    color: #ffffff;
+  }
+
+  .deleteButton:hover {
+    background-color: #e63939;
   }
   
   .editContainer {
@@ -91,6 +105,7 @@
   .editContainer .addButton {
     background-color: #70c070;
     padding: 0.5rem 1rem;
+    margin-top: 10px;
     font-size: 1rem;
     border-radius: 5px;
     border: none;
@@ -112,22 +127,15 @@
     border-radius: 5px;
     margin-bottom: 1rem;
     color: #ffffff;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
   }
   
-  .deleteButton {
-    padding: 0.5rem 1rem;
-    margin-top: 0px;
-    font-size: 1rem;
-    color: #ffffff;
-    background-color: #ff4d4d;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .deleteButton:hover {
-    background-color: #e63939;
+  .faqItem:hover {
+    background-color: #2B3A2B;
+    transform: translateY(-2px);
   }
   
   /* Responsive Design */

@@ -11,6 +11,11 @@ export default function AdminFaq() {
   const [editAnswer, setEditAnswer] = useState('');
 
   useEffect(() => {
+    // Scroll to the top when this component mounts
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, []);
+  
+  useEffect(() => {
     fetchFaqs();
   }, []);
 
@@ -25,7 +30,14 @@ export default function AdminFaq() {
   };
 
   const addFaq = () => {
-    axios.post('http://localhost:5000/faqs', { question: newQuestion, answer: newAnswer })
+    const sanitizedQuestion = newQuestion.trim();
+  const sanitizedAnswer = newAnswer.trim();
+
+    if (!sanitizedQuestion || !sanitizedAnswer) {
+      alert('Question and Answer cannot be empty!');
+      return;
+    }
+    axios.post('http://localhost:5000/faqs', { question: sanitizedQuestion, answer: sanitizedAnswer })
       .then(() => {
         fetchFaqs();
         setNewQuestion('');
