@@ -47,6 +47,8 @@ export default function FeedbackVsRegistration() {
             <h2>Feedback vs Registration</h2>
             <Bar
                 data={chartData}
+                width={600}
+                height={400}
                 options={{
                     responsive: true,
                     plugins: {
