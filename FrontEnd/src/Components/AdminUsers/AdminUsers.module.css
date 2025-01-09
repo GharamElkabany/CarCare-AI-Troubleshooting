@@ -129,6 +129,14 @@
     background-color: #26b337;
   }
   
+  .searchBox {
+    padding: 10px;
+    width: 300px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
   /* Modal Styles */
 .modalOverlay {
     position: fixed;
@@ -165,9 +173,12 @@
     box-sizing: border-box;
   }
   
-  .modalActions {
-    display: flex;
+  .actionButton {
+    background-color:#26b33600;
     justify-content: flex-end;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 4px;
   }
   
   .submitButton,

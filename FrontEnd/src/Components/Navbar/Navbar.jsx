@@ -91,16 +91,16 @@ export default function Navbar({ auth, role }) {
                       Feedback
                     </HashLink>
                   </li>
-                </>)}  
 
-              <li className="nav-item mx-3">
-                <HashLink 
-                   smooth
-                   className="nav-link text-muted-white" 
-                   to="/diagnostics">
-                  AI Diagnostics
-                </HashLink>
-              </li>
+                  <li className="nav-item mx-3">
+                    <HashLink 
+                      smooth
+                      className="nav-link text-muted-white" 
+                      to="/diagnostics">
+                      AI Diagnostics
+                    </HashLink>
+                  </li>
+                </>)}  
             </>
             }
 

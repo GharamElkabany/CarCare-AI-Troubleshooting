@@ -102,12 +102,14 @@ app.post("/login", (req, res) => {
 
 app.get("/users", verifyUser, (req, res) => {
   const sql =
-    'SELECT id, name, email, phone, role FROM login WHERE role = "user"';
+    'SELECT id, name, email, phone, role FROM login';
   db.query(sql, (err, data) => {
     if (err) {
+      console.error("Database Error:", err);
       return res.json({ Error: "Error fetching users" });
     }
-    return res.json(data); // Send filtered user data
+    console.log("Fetched Users:", data);
+    return res.json(data); // Send all user data
   });
 });
 
@@ -177,6 +179,57 @@ app.put("/user/change-password", verifyUser, (req, res) => {
           return res.json({ Error: "Current password is incorrect" });
         }
       });
+    } else {
+      return res.json({ Error: "User not found" });
+    }
+  });
+});
+
+//Admin search user 
+app.get("/users/search", verifyUser, (req, res) => {
+  const search = req.query.q || "";
+  const sql = `
+    SELECT id, name, email, phone, role 
+    FROM login 
+    WHERE (name LIKE ? OR email LIKE ? OR phone LIKE ?)
+  `;
+  const searchValue = `%${search}%`;
+  db.query(sql, [searchValue, searchValue, searchValue], (err, data) => {
+    if (err) {
+      return res.json({ Error: "Error searching users" });
+    }
+    return res.json(data);
+  });
+});
+
+//Admin edit user 
+app.put("/users/:id", verifyUser, (req, res) => {
+  const { id } = req.params;
+  const { name, phone, role } = req.body;
+  const sql = "UPDATE login SET name = ?, phone = ?, role = ? WHERE id = ?";
+  db.query(sql, [name, phone, role, id], (err, result) => {
+    if (err) {
+      console.error("Error updating user:", err);
+      return res.json({ Error: "Error updating user" });
+    }
+    if (result.affectedRows > 0) {
+      return res.json({ Status: "Success" });
+    } else {
+      return res.json({ Error: "User not found or no changes made" });
+    }
+  });
+});
+
+//Admin delete user 
+app.delete("/users/:id", verifyUser, (req, res) => {
+  const { id } = req.params;
+  const sql = "DELETE FROM login WHERE id = ?";
+  db.query(sql, [id], (err, result) => {
+    if (err) {
+      return res.json({ Error: "Error deleting user" });
+    }
+    if (result.affectedRows > 0) {
+      return res.json({ Status: "Success", Message: "User deleted successfully" });
     } else {
       return res.json({ Error: "User not found" });
     }
