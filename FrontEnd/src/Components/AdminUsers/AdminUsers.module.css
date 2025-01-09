@@ -207,3 +207,32 @@
   .cancelButton:hover {
     background-color: #c0392b;
   }
+
+  .modalContent select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    color: #333;
+    font-size: 15px;
+    box-sizing: border-box;
+    outline: none;
+    transition: all 0.3s ease;
+  }
+  
+  .modalContent select:focus {
+    border-color: #2d9c39; /* Green border on focus */
+    box-shadow: 0px 0px 5px rgba(45, 156, 57, 0.5);
+  }
+  
+  .modalContent select:hover {
+    background-color: #eaeaea;
+  }
+  
+  .modalContent select option {
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+  }

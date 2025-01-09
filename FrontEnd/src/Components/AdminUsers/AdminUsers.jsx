@@ -8,6 +8,7 @@ export default function AdminUsers() {
   const [usersPerPage] = useState(4);
   const [loading, setLoading] = useState(true); 
   const [error, setError] = useState(null);  
+  const [searchQuery, setSearchQuery] = useState('');
 
   // State for Add/Edit User Form
   const [showModal, setShowModal] = useState(false);
@@ -141,13 +142,19 @@ export default function AdminUsers() {
           <input
             type="text"
             placeholder="Search by name or contact number..."
-            onChange={(e) => searchUsers(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              searchUsers(e.target.value);
+            }}
             className={styles.searchBox}
+            autoComplete="off"
           />
           <button
             onClick={() => {
               setShowModal(true);
               setNewUser({ id: '', name: '', email: '', phone: '', password: '', role: 'user' });
+              setSearchQuery('');
             }}
             className={styles.addButton}
           >
@@ -178,6 +185,7 @@ export default function AdminUsers() {
                 placeholder="Phone"
                 value={newUser.phone}
                 onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
+                autoComplete="off"
               />
               {!newUser.id && (
                 <input
@@ -185,6 +193,7 @@ export default function AdminUsers() {
                   placeholder="Password"
                   value={newUser.password}
                   onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                  autoComplete="new-password"
                 />
               )}
               <select
@@ -195,10 +204,22 @@ export default function AdminUsers() {
                 <option value="user">User</option>
               </select>
               <div className={styles.modalActions}>
-                <button onClick={handleAddEditUser} className={styles.submitButton}>
+                <button 
+                  onClick={() => {
+                    handleAddEditUser();
+                    setSearchQuery('');
+                    fetchUsers();
+                  }} className={styles.submitButton}>
                   Save
                 </button>
-                <button onClick={() => setShowModal(false)} className={styles.cancelButton}>
+                <button 
+                  onClick={() => { 
+                    setShowModal(false);
+                    setSearchQuery('');
+                    fetchUsers();
+                  }} 
+                  className={styles.cancelButton}
+                >
                   Cancel
                 </button>
               </div>
