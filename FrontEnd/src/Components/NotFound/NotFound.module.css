@@ -4,7 +4,11 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #447241;
+    background-image: url('../../assets/images/404bg.jpg');
+    background-size: cover;
+    background-repeat: repeat;
+    background-position: center;
+    /* background-color: #447241; */
     text-align: center;
     padding: 20px;
   }

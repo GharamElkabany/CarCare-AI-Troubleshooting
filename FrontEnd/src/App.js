@@ -35,10 +35,7 @@ function App() {
         { path: "faq", element: <Faq /> },
         { path: "feedback", element: <Feedback /> },
         { path: "diagnostics", element: <Diagnostics /> },
-        {
-          path: "login",
-          element: <Login setAuth={setAuth} setRole={setRole} />,
-        },
+        { path: "login", element: <Login setAuth={setAuth} setRole={setRole} />},
         { path: "register", element: <Register /> },
         { path: "home", element: <Home /> },
         { path: "profile", element: <Profile /> },

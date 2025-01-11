@@ -36,8 +36,6 @@ export default function Login({ setAuth, setRole }) {
 
           setAuth(true);
           setRole(userRole);
-
-          // Redirect to home
           navigate("/home");
         } else {
           alert(res.data.Error);

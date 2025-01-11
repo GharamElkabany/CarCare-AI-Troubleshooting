@@ -1,1 +1,52 @@
-.Diagnostics {}
+.AiBg {
+    background: linear-gradient(10deg, #46bc6866, #3d4942d7);
+    height: 125vh; 
+    display: flex; 
+    justify-content: center;
+    overflow: hidden;
+}
+
+.container {
+    height: 110vh;
+    width: 65vw; 
+    border-radius: 10px; 
+    overflow: hidden; 
+    position: relative;
+    margin-top: 40px;
+}
+
+.textContainer {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 35px;
+    color: white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.space {
+    display: inline-block;
+    width: 10px; 
+}
+
+.title2 {
+    font-weight: bold;
+    font-size: 35px;
+    color: #12b42f;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+.subtitle {
+    font-size: 14px;
+    color: #ffffff; 
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+  
+  iframe {
+    width: 101.2%;
+    height: 88%;
+    border-radius: 20px;
+  }

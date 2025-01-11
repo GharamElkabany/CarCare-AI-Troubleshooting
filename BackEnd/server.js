@@ -251,7 +251,7 @@ app.post("/feedback", verifyUser, (req, res) => {
 app.get("/feedbacks", verifyUser, (req, res) => {
   if (req.role !== "admin") return res.json({ Error: "Unauthorized access" });
 
-  const sql = `SELECT f.id, l.name, f.rating, f.feedback, f.timestamp 
+  const sql = `SELECT f.id, l.name AS name, f.rating, f.feedback, f.timestamp 
                  FROM feedback f
                  JOIN login l ON f.user_id = l.id
                  ORDER BY f.timestamp DESC`;

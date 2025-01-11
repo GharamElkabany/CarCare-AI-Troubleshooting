@@ -100,6 +100,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 1rem;
   color: #fff;
 }
 
@@ -122,4 +123,49 @@
   color: #fff;
   font-weight: bold;
   border: none;
+}
+
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Space between input and dropdown */
+  margin-bottom: 20px;
+}
+
+.filterContainer {
+  display: flex;
+  align-items: center; /* Vertically align items */
+  gap: 15px; /* Space between input and stars */
+  width: 50%;
+  margin-bottom: 20px;
+  margin-top: 5px;
+}
+
+.searchInput {
+  width: 120%;
+  padding: 0.7rem;
+  font-size: 0.9rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #333;
+  color: #fff;
+}
+
+.starFilter {
+  display: flex;
+  gap: 0.5rem;
+}
+.ratingDisplay {
+  display: flex;
+  gap: 0.2rem;
+  margin: 0.5rem 0;
+}
+
+.star {
+  font-size: 1.5rem;
+  transition: transform 0.2s ease-in-out;
+}
+
+.star:hover {
+  transform: scale(1.2);
 }
