@@ -19,11 +19,13 @@ export default function RatingDistribution() {
       const total = chart.options.plugins.centerText.text;
       const lines = total.split('\n');
 
+      const baseFontSize = Math.min(width / 15, 16); // Smaller font for smaller charts
+      const lineHeight = baseFontSize + 5;
+
       const centerY = chart.chartArea.top + (chart.chartArea.bottom - chart.chartArea.top) / 2;
-      const lineHeight = 30;
 
       ctx.save();
-      ctx.font = '25px Arial';
+      ctx.font = `${baseFontSize}px Arial`;
       ctx.fillStyle = '#000';
       ctx.textAlign = 'center';
       ctx.textBaseline = 'middle';
@@ -72,12 +74,14 @@ export default function RatingDistribution() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.chartContainer}`}>
       <h2>Ratings Distribution</h2>
       {chartData && (
         <Doughnut
           data={chartData}
           options={{
+            responsive: true,
+            aspectRatio: 1,
             plugins: {
               tooltip: {
                 callbacks: {

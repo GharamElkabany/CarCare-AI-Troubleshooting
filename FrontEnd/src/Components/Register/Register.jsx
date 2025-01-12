@@ -81,7 +81,7 @@ export default function Register() {
               />
             </div>
             {formik.errors.name && formik.touched.name ? (
-                <div className={`${styles.alert} alert alert-danger`}>{formik.errors.name}</div>
+                <div className={`${styles.alert}`}>{formik.errors.name}</div>
               ) : null}
 
             <div className={`${styles.textInputWrapper}`}>
@@ -97,7 +97,7 @@ export default function Register() {
               />
             </div>
             {formik.errors.email && formik.touched.email ? (
-              <div className={`${styles.alert} alert alert-danger`}>{formik.errors.email}</div>
+              <div className={`${styles.alert}`}>{formik.errors.email}</div>
             ) : null}
 
             <div className={`${styles.textInputWrapper}`}>
@@ -114,25 +114,34 @@ export default function Register() {
             </div>
             <span>
               {formik.errors.phone && formik.touched.phone ? (
-                <div className={`${styles.alert} alert alert-danger`}>{formik.errors.phone}</div>
+                <div className={`${styles.alert}`}>{formik.errors.phone}</div>
               ) : null}
             </span>
             
 
             <div className={`${styles.textInputWrapper}`}>
-              <input
-                onBlur={formik.handleBlur}
-                className={`${styles.textInput}`}
-                onChange={formik.handleChange}
-                value={formik.values.password}
-                type="password"
-                placeholder="Password"
-                name="password"
-                id="password"
-              />
+              <div className={styles.inputWithTooltip}>
+                <input
+                  onBlur={formik.handleBlur}
+                  className={`${styles.textInput}`}
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  id="password"
+                />
+                <span className={styles.tooltip}>
+                  ℹ
+                  <span className={styles.tooltipText}>
+                    Password must start with an uppercase letter and be 6-11 characters
+                    long.
+                  </span>
+                </span>
+              </div>  
             </div>
             {formik.errors.password && formik.touched.password ? (
-              <div className={`${styles.alert} alert alert-danger`}>{formik.errors.password}</div>
+              <div className={`${styles.alert}`}>{formik.errors.password}</div>
             ) : null}
 
             <div className={`${styles.textInputWrapper}`}>
@@ -148,7 +157,7 @@ export default function Register() {
               />
             </div>
             {formik.errors.repassword && formik.touched.repassword ? (
-              <div className={`${styles.alert} alert alert-danger`}>{formik.errors.repassword}</div>
+              <div className={`${styles.alert}`}>{formik.errors.repassword}</div>
             ) : null}
 
             <button disabled={!(formik.isValid && formik.dirty)} type="submit">Register</button>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import Layout from "./Components/Layout/Layout";
 import Home from "./Components/Home/Home";
@@ -16,37 +16,57 @@ import AdminFeedbacks from "./Components/AdminFeedbacks/AdminFeedbacks";
 import NotFound from "./Components/NotFound/NotFound";
 import AdminFaq from "./Components/AdminFaq/AdminFaq";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 
 function App() {
-  const [auth, setAuth] = useState(
-    localStorage.getItem("token") ? true : false
-  );
-  const [role, setRole] = useState(localStorage.getItem("role") || "");
+  const [auth, setAuth] = useState(false); // Default to logged out
+  const [role, setRole] = useState("");
 
-  let routers = createBrowserRouter([
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const userRole = localStorage.getItem("role");
+
+    if (token && userRole) {
+      setAuth(true);
+      setRole(userRole);
+    } else {
+      setAuth(false);
+      setRole("");
+    }
+  }, []);
+
+  const ProtectedRoute = ({ children }) => {
+    return auth ? children : <Navigate to="/login" replace />;
+  };
+
+  const RestrictedRoute = ({ children }) => {
+    return !auth ? children : <Navigate to="/home" replace />;
+  };
+
+  const routers = createBrowserRouter([
     {
       path: "",
       element: <Layout role={role} />,
       children: [
-        { index: true, element: <Welcome /> },
-        { path: "about", element: <About /> },
-        { path: "faq", element: <Faq /> },
-        { path: "feedback", element: <Feedback /> },
-        { path: "diagnostics", element: <Diagnostics /> },
-        { path: "login", element: <Login setAuth={setAuth} setRole={setRole} />},
-        { path: "register", element: <Register /> },
-        { path: "home", element: <Home /> },
-        { path: "profile", element: <Profile /> },
-        { path: "changePassword", element: <ChangePassword /> },
-        { path: "adminUsers", element: <AdminUsers /> },
-        { path: "adminFeedbacks", element: <AdminFeedbacks /> },
-        { path: "adminFaq", element: <AdminFaq /> },
-        { path: "adminDashboard", element: <AdminDashboard /> },
+        // Restricted pages for unauthenticated users
+        { index: true, element: <RestrictedRoute><Welcome /></RestrictedRoute> },
+        { path: "login", element: <RestrictedRoute><Login setAuth={setAuth} setRole={setRole} /></RestrictedRoute> },
+        { path: "register", element: <RestrictedRoute><Register /></RestrictedRoute> },
+
+        // Protected pages for authenticated users
+        { path: "home", element: <ProtectedRoute><Home /></ProtectedRoute> },
+        { path: "profile", element: <ProtectedRoute><Profile setAuth={setAuth} setRole={setRole} /></ProtectedRoute> },
+        { path: "changePassword", element: <ProtectedRoute><ChangePassword /></ProtectedRoute> },
+        { path: "diagnostics", element: <ProtectedRoute><Diagnostics /></ProtectedRoute> },
+        { path: "adminUsers", element: role === "admin" ? <ProtectedRoute><AdminUsers /></ProtectedRoute> : <Navigate to="/home" replace /> },
+        { path: "adminFeedbacks", element: role === "admin" ? <ProtectedRoute><AdminFeedbacks /></ProtectedRoute> : <Navigate to="/home" replace /> },
+        { path: "adminFaq", element: role === "admin" ? <ProtectedRoute><AdminFaq /></ProtectedRoute> : <Navigate to="/home" replace /> },
+        { path: "adminDashboard", element: role === "admin" ? <ProtectedRoute><AdminDashboard /></ProtectedRoute> : <Navigate to="/home" replace /> },
+
+        // Fallback for 404
+        { path: "*", element: <NotFound /> },
       ],
     },
-    { path: "*", element: <NotFound /> },
   ]);
 
   return (

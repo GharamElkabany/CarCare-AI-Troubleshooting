@@ -3,11 +3,10 @@ import styles from "./Profile.module.css";
 import axios from "axios";
 import { useNavigate, useOutletContext } from "react-router-dom";
 
-export default function Profile() {
+export default function Profile( { setAuth, setRole } ) {
   const [editing, setEditing] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const { setAuth } = useOutletContext();
   const navigate = useNavigate();
 
   const [userData, setUserData] = useState({
@@ -68,7 +67,8 @@ export default function Profile() {
       .then((res) => {
         if (res.data.Status === "Success") {
           setAuth(false);
-          navigate("/"); // Redirect to home after logout
+          setRole("");
+          navigate("/"); // Redirect to welcome after logout
         }
       })
       .catch((err) => console.log(err));

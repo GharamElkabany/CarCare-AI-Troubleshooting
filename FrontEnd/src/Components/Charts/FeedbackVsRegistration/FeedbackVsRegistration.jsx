@@ -43,7 +43,7 @@ export default function FeedbackVsRegistration() {
 
   return <>
 
-    <div className={styles.chartContainer}>
+    <div className={`${styles.chartContainer}`}>
             <h2>Feedback vs Registration</h2>
             <Bar
                 data={chartData}
@@ -51,6 +51,7 @@ export default function FeedbackVsRegistration() {
                 height={400}
                 options={{
                     responsive: true,
+                    aspectRatio: 1,
                     plugins: {
                         legend: { position: 'top' },
                     },

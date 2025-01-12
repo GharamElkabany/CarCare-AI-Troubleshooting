@@ -4,6 +4,7 @@
     display: flex; 
     justify-content: center;
     overflow: hidden;
+    padding: 10px;
 }
 
 .container {
@@ -50,3 +51,51 @@
     height: 88%;
     border-radius: 20px;
   }
+
+/* Media Query for Devices Smaller Than 768px */
+@media screen and (max-width: 768px) {
+    .AiBg {
+        padding: 20px; /* Add more padding for smaller devices */
+    }
+
+    .container {
+        width: 100%; /* Full width for smaller devices */
+        height: auto; /* Let the height adjust dynamically */
+    }
+
+    .title, .title2 {
+        font-size: 30px; /* Reduce title font size */
+    }
+
+    .subtitle {
+        font-size: 15px; /* Further reduce subtitle font size */
+    }
+
+    iframe {
+        height: 60vh; /* Reduce iframe height for smaller devices */
+    }
+}
+
+/* Media Query for Very Small Devices (< 480px) */
+@media screen and (max-width: 480px) {
+    .AiBg {
+        height: 100vh; 
+        padding: 20px;
+    }
+    .container {
+        height: 110vh;
+        margin-top: 20px;
+    }
+
+    .title, .title2 {
+        font-size: 25px; /* Further reduce title font size */
+    }
+
+    .subtitle {
+        font-size: 10px; /* Further reduce subtitle font size */
+    }
+
+    iframe {
+        height: 77vh; /* Reduce iframe height */
+    }
+}

@@ -2,19 +2,36 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 60px); 
+    height: calc(125vh - 50px); 
     padding: 20px;
-    overflow-y: auto;
+    overflow: hidden;
     background-image: url('../../assets/images/registerbg.jpg'); 
     background-size: cover;
     background-position: center;
 }
 
 .alert {
-  margin: 2px;
-  height: 55px;
-  word-wrap: break-word;
-}
+  display: flex; /* Use flex for icon and text alignment */
+  align-items: center; /* Vertically center the icon and text */
+  margin-top: 0px; /* Add spacing below the input field */
+  margin-left: 25px;
+  padding: 8px 12px; /* Padding for better spacing */
+  font-size: 14px; /* Text size */
+  color: #ff4b3e; /* Red color for text */
+  background-color: rgba(244, 67, 54, 0.1); /* Light red background */
+  border: 1px solid #f44336; /* Border matching the text color */
+  border-radius: 4px; /* Rounded corners */
+  width: 80%; /* Match the width of the input */
+  box-sizing: border-box; /* Include padding in width calculations */
+  text-align: center; /* Align text to the left */
+  gap: 8px; /* Add space between the icon and text */
+  }
+
+  .alert::before {
+    content: "❗"; /* Unicode for warning icon */
+    font-size: 18px; /* Adjust size of the icon */
+    color: #ff4b3e; /* Same color as the text */
+  }
 
 .formcontainer {
     background-color: rgba(0, 0, 0, 0.7);
@@ -22,6 +39,11 @@
     border-radius: 10px;
     width: 320px;
     text-align: center;
+    position: absolute;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    overflow: visible;
 }
 
 .formcontainer h2 {
@@ -156,4 +178,59 @@
 
 .textInputWrapper:focus-within .textInput::placeholder {
   opacity: 0;
+}
+
+.inputWithTooltip {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.textInput {
+  position: relative;
+  width: 100%;
+  padding-right: 35px; /* Add space for the tooltip icon */
+}
+
+.tooltip {
+  position: absolute;
+  right: 35px; /* Position the tooltip inside the input field */
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px; /* Fixed size for the circle */
+  height: 18px; /* Fixed size for the circle */
+  background-color: #00FF00; /* Circle background color */
+  color: #060606; /* Text color */
+  border-radius: 50%; /* Makes it a circle */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.tooltipText {
+  visibility: hidden;
+  width: 240px;
+  background-color: rgba(0, 0, 0, 0.9);
+  color: #fff;
+  text-align: center;
+  border-radius: 5px;
+  padding: 8px;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; /* Position above the tooltip icon */
+  right: 0; /* Align tooltip to the right edge of the input */
+  transform: translateX(50%);
+  font-size: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.tooltip:hover .tooltipText {
+  visibility: visible;
+  opacity: 1;
 }

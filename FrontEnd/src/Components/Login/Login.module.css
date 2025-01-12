@@ -16,10 +16,27 @@
   color: #00FF00;
 }
 .customAlert {
-    margin: 2px;
-    height: 55px;
-    word-wrap: break-word;
+  display: flex; /* Use flex for icon and text alignment */
+  align-items: center; /* Vertically center the icon and text */
+  margin-top: -10px; /* Add spacing below the input field */
+  padding: 8px 12px; /* Padding for better spacing */
+  font-size: 14px; /* Text size */
+  color: #ff4b3e; /* Red color for text */
+  background-color: rgba(244, 67, 54, 0.1); /* Light red background */
+  border: 1px solid #f44336; /* Border matching the text color */
+  border-radius: 4px; /* Rounded corners */
+  width: 70%; /* Match the width of the input */
+  box-sizing: border-box; /* Include padding in width calculations */
+  text-align: left; /* Align text to the left */
+  gap: 8px; /* Add space between the icon and text */
   }
+
+  .customAlert::before {
+    content: "❗"; /* Unicode for warning icon */
+    font-size: 18px; /* Adjust size of the icon */
+    color: #ff4b3e; /* Same color as the text */
+  }
+  
 .container {
     display: flex;
     justify-content: center;
@@ -83,39 +100,33 @@
   position: relative;
   width: 440px;
   max-width: 100%;
-  height: 400px;
+  height: 450px;
+  min-height: auto;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   perspective: 800px;
   margin-top: 60px;
 }
+
 .card3dwrapper {
   width: 100%;
-  height: 100%;
-  position:absolute;    
+  min-height: 100%;
+  position: relative;    
   top: 0;
   left: 0;  
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
   transition: all 600ms ease-out; 
 }
+
 .cardfront, .cardback {
   width: 100%;
-  height: 100%;
+  min-height: 100%;
   background-color: rgba(0, 0, 0, 0.784);
-  /* background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/1462889/pat.svg'); */
-  background-position: bottom center;
-  background-repeat: no-repeat;
-  background-size: 300%;
   position: absolute;
   border-radius: 10px;
-  left: 0;
-  top: 0;
   -webkit-transform-style: preserve-3d;
   transform-style: preserve-3d;
-  -webkit-backface-visibility: hidden;
-  -moz-backface-visibility: hidden;
-  -o-backface-visibility: hidden;
   backface-visibility:visible;
 }
 .cardback {
@@ -125,6 +136,7 @@
   transform: rotateY(180deg);
 }
 .centerwrap{
+  margin-top: -20px;
   position: absolute;
   width: 100%;
   padding: 0 35px;
@@ -267,7 +279,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%; /* Ensures the parent container stretches fully */
+    min-height: auto; /* Ensures the parent container stretches fully */
   }
 
 .textInputWrapper {
@@ -276,8 +288,9 @@
     flex-direction: column;
     align-items: center;
     width: 280px; 
-    margin: 12px 0; /* Adjusted margin */
+    margin-bottom: 20px;
     --accent-color: #a3e583;
+    transition: margin-bottom 0.3s ease;
   }
   
   .textInputWrapper:before {
@@ -389,8 +402,15 @@
     color: #11f711 ;
     position: absolute;
     right: 45px;
-    top: 183px;
     text-decoration: none;
+  }
+
+  .forgotPassword {
+    position: relative; /* Allow it to move with content */
+    margin-top: 6px; /* Add spacing above */
+    text-align: right; /* Align to the right */
+    width: 100%; /* Match input width */
+    transition: margin-top 0.3s ease;
   }
   
   .forgotPassword:hover a:hover {

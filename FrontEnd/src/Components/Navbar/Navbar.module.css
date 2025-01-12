@@ -1,9 +1,83 @@
 .fixedNavbar {
-    position:fixed !important;
-    top: 0;
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #343a40;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  margin-left: 10%;
+}
+
+/* Hamburger Menu Styling */
+.navbarToggler {
+  border: none;
+  background-color: transparent;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+
+.navbarTogglerIcon {
+  width: 30px;
+  height: 30px;
+  background-color: white;
+  border-radius: 50%;
+  position: relative;
+}
+
+.navbarTogglerIcon::before,
+.navbarTogglerIcon::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 2px;
+  background-color: black;
+}
+
+.navbarTogglerIcon::before {
+  top: 9px;
+  left: 8px;
+}
+
+.navbarTogglerIcon::after {
+  top: 18px;
+  left: 8px;
+}
+
+@media (max-width: 992px) {
+  .logo {
+    margin-left: 9px;
+  }
+
+  .navbarToggler {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    display: flex;
+  }
+
+  .collapse {
+    background-color: #343a40;
+    position: absolute;
+    top: 50px;
     left: 0;
     width: 100%;
-    z-index: 1000; /* Ensures it stays above other elements */
-    background-color: #343a40; /* Match your navbar background */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Optional shadow for better visibility */
+    z-index: 1000;
+    padding: 10px 15px;
   }
+
+  .navbar-nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profileIconWrapper {
+    position: absolute;
+    right: 19px;
+    top: 45px;
+  }
+}

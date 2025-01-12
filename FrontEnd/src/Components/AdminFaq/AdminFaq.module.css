@@ -137,23 +137,7 @@
     background-color: #2B3A2B;
     transform: translateY(-2px);
   }
-  
-  /* Responsive Design */
-  @media (max-width: 768px) {
-    .contentWrapper {
-      padding: 1rem;
-    }
-  
-    .title {
-      font-size: 2rem;
-    }
-  
-    .addButton,
-    .deleteButton {
-      font-size: 0.9rem;
-    }
-  }
-  
+
   .buttonGroup {
     display: flex;
     gap: 0.5rem; /* Space between the buttons */
@@ -162,3 +146,26 @@
   .buttonGroup .deleteButton {
     background-color: #ff4d4d;
   }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .contentWrapper {
+      padding: 1rem;
+    }
+  
+    .title {
+      font-size: 1.7rem;
+      margin-bottom: -5px;
+    }
+  
+    .addButton,
+    .deleteButton {
+      font-size: 0.9rem;
+    }
+
+    .editContainer .inputField {
+      width: 123%;
+    }
+  }
+  
+  

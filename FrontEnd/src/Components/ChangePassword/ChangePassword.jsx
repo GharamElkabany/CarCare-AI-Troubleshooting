@@ -100,7 +100,7 @@ export default function ChangePassword() {
           </div>
         )}
 
-        <h2>Change Password</h2>
+        <h2 className={styles.title}>Change Password</h2>
         <form onSubmit={handleChangePassword}>
           <div className={styles.inputGroup}>
             <label>Current Password:</label>

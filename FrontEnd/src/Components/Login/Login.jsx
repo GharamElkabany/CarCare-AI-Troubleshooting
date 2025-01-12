@@ -29,9 +29,10 @@ export default function Login({ setAuth, setRole }) {
           console.log(res.data.role);
           const token = res.data.token;
           const userRole = res.data.role;
+          console.log(token);
 
           // Store token and role in localStorage
-          localStorage.setItem("token", token);
+          localStorage.setItem("token", "true");
           localStorage.setItem("role", userRole);
 
           setAuth(true);
@@ -143,7 +144,7 @@ export default function Login({ setAuth, setRole }) {
                                 {emailFormik.touched.email &&
                                   emailFormik.errors.email && (
                                     <div
-                                      className={`${styles.customAlert} alert alert-danger`}
+                                      className={`${styles.customAlert}`}
                                     >
                                       {emailFormik.errors.email}
                                     </div>
@@ -167,7 +168,7 @@ export default function Login({ setAuth, setRole }) {
                                 {emailFormik.touched.password &&
                                   emailFormik.errors.password && (
                                     <div
-                                      className={`${styles.customAlert} alert alert-danger`}
+                                      className={`${styles.customAlert}`}
                                     >
                                       {emailFormik.errors.password}
                                     </div>
@@ -235,7 +236,7 @@ export default function Login({ setAuth, setRole }) {
                                 {phoneFormik.touched.phone &&
                                   phoneFormik.errors.phone && (
                                     <div
-                                      className={`${styles.customAlert} alert alert-danger`}
+                                      className={`${styles.customAlert}`}
                                     >
                                       {phoneFormik.errors.phone}
                                     </div>
@@ -262,7 +263,7 @@ export default function Login({ setAuth, setRole }) {
                                 {phoneFormik.touched.password &&
                                   phoneFormik.errors.password && (
                                     <div
-                                      className={`${styles.customAlert} alert alert-danger`}
+                                      className={`${styles.customAlert}`}
                                     >
                                       {phoneFormik.errors.password}
                                     </div>

@@ -169,3 +169,68 @@
 .star:hover {
   transform: scale(1.2);
 }
+
+/* Responsive adjustments for mobile screens */
+@media (max-width: 768px) {
+  .FeedbacksPage {
+    padding: 20px;
+    height: auto; /* Allow height to adjust dynamically */
+  }
+
+  .feedbackContainer {
+    width: 90%; /* Adjust container width for small screens */
+    padding: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    font-size: 20px; /* Adjust font size for smaller screens */
+    text-align: center;
+  }
+
+  .filterContainer {
+    flex-direction: column; /* Stack search bar and filter vertically */
+    align-items: stretch; /* Align items to take full width */
+    gap: 10px;
+    width: 100%; /* Make filters full width */
+  }
+
+  .searchInput {
+    width: 100%; /* Adjust search input to fit container */
+    font-size: 0.8rem;
+    padding: 10px;
+  }
+
+  .starFilter {
+    justify-content: center; /* Center stars horizontally */
+  }
+
+  .feedbackCard {
+    padding: 10px;
+    margin: 10px 0;
+    width: 100%; /* Make cards fit container width */
+  }
+
+  .feedbackCard h4 {
+    font-size: 1rem; /* Reduce font size */
+  }
+
+  .feedbackCard p {
+    font-size: 0.9rem; /* Adjust font size for readability */
+  }
+
+  .feedbackCard span {
+    font-size: 0.7rem; /* Reduce font size for timestamps */
+  }
+
+  .pagination {
+    flex-direction: row; /* Ensure buttons stay in one row */
+    flex-wrap: nowrap; /* Prevent wrapping */
+  }
+
+  .paginationButton {
+    font-size: 0.8rem; /* Slightly reduce button font size */
+    padding: 6px 10px; /* Adjust padding for smaller buttons */
+  }
+}

@@ -1,10 +1,21 @@
-.container {
-    width: 65%;
-    margin: 0 auto;
-    text-align: center;
+.chartContainer {
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .chartContainer {
+    max-width: 800px;
   }
-  
-  h3 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
+
+  h2 {
+    font-size: 1.2rem;
   }
+}
