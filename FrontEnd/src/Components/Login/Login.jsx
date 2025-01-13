@@ -176,7 +176,7 @@ export default function Login({ setAuth, setRole }) {
 
                                 {/* Forget Password Link */}
                                 <p className={styles.forgotPassword}>
-                                  <Link to="/ForgetPassword">
+                                  <Link to="/forgot-password">
                                     Forgot Password?
                                   </Link>
                                 </p>
@@ -271,7 +271,7 @@ export default function Login({ setAuth, setRole }) {
 
                                 {/* Forget Password Link */}
                                 <p className={styles.forgotPassword}>
-                                  <Link to="/ForgetPassword">
+                                  <Link to="/forgot-password">
                                     Forgot Password?
                                   </Link>
                                 </p>

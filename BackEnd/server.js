@@ -52,6 +52,7 @@ const verifyUser = (req, res, next) => {
       } else {
         console.log("Decoded Token:", decoded);
         req.name = decoded.name;
+        req.email = decoded.email;
         req.role = decoded.role;
         req.user_id = decoded.id;
         next();
@@ -155,6 +156,60 @@ app.post('/login', (req, res) => {
   });
 });
 
+app.post('/forgot-password', (req, res) => {
+  const { email } = req.body;
+  const sql = "SELECT id FROM login WHERE email = ?";
+  
+  db.query(sql, [email], (err, result) => {
+    if (err) return res.json({ Error: "Database error" });
+    
+    if (result.length === 0) {
+      return res.json({ Error: "Email not found" });
+    }
+    
+    const userId = result[0].id;
+    const resetToken = jwt.sign({ userId }, "jwt-secret-key", { expiresIn: "1h" }); // Token valid for 1 hour
+    const resetLink = `http://localhost:3000/reset-password?token=${resetToken}`;
+    
+    const mailOptions = {
+      from: 'your-email@gmail.com',
+      to: email,
+      subject: 'Password Reset Request',
+      html: `<p>You requested a password reset. Click the link below to reset your password:</p>
+             <a href="${resetLink}">${resetLink}</a><p>This link will expire in 1 hour.</p>`,
+    };
+    
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+        return res.json({ Error: "Error sending password reset email" });
+      }
+      res.json({ Status: "Success", Message: "Password reset link sent to your email" });
+    });
+  });
+});
+
+app.post('/reset-password', (req, res) => {
+  const { token, newPassword } = req.body;
+
+  jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+    if (err) {
+      return res.json({ Error: "Invalid or expired token" });
+    }
+    
+    const userId = decoded.userId;
+    bcrypt.hash(newPassword, salt, (err, hashedPassword) => {
+      if (err) return res.json({ Error: "Error hashing password" });
+      
+      const sql = "UPDATE login SET password = ? WHERE id = ?";
+      db.query(sql, [hashedPassword, userId], (err, result) => {
+        if (err) return res.json({ Error: "Error updating password" });
+        res.json({ Status: "Success", Message: "Password updated successfully" });
+      });
+    });
+  });
+});
+
 app.get("/users", verifyUser, (req, res) => {
   const sql =
     'SELECT id, name, email, phone, role, isVerified FROM login';
@@ -188,31 +243,72 @@ app.get("/user/profile", verifyUser, (req, res) => {
 });
 
 app.put("/user/profile", verifyUser, (req, res) => {
-  const { name, email, phone } = req.body;
+  console.log('Received data:', req.body);
+  const { name, phone } = req.body;
+  // Make sure both name and phone exist in the request body before proceeding
+  if (!name || !phone) {
+    return res.json({ Error: "Name and phone are required fields" });
+  }
 
-  const sql = "UPDATE login SET name = ?, email = ?, phone = ? WHERE name = ?";
-  db.query(sql, [name, email, phone, req.name], (err, result) => {
+  const sql = "UPDATE login SET name = ?, phone = ? WHERE id = ?";
+  console.log("Id to update:", req.user_id);
+  db.query(sql, [name, phone, req.user_id], (err, result) => {
     if (err) {
+      console.error("MySQL error:", err);
       return res.json({ Error: "Error updating user data" });
     }
-    return res.json({ Status: "Profile updated successfully" });
+    if (result.changedRows > 0) {
+      console.log("Update result:", result);
+      return res.json({ Status: "Profile updated successfully" });
+    }else{
+      return res.json({ Error: "No changes made or user not found" });
+    }  
+  });
+});
+
+app.post("/user/validate-password", verifyUser, (req, res) => {
+  const { currentPassword } = req.body;
+  
+  const sql = "SELECT password FROM login WHERE id = ?";
+  db.query(sql, [req.user_id], (err, data) => {
+    if (err) {
+      console.error("Error fetching password:", err);
+      return res.json({ Error: "Database error" });
+    }
+
+    if (data.length > 0) {
+      // Compare the current password with the stored password
+      bcrypt.compare(currentPassword, data[0].password, (err, result) => {
+        if (err) {
+          console.error("Error comparing passwords:", err);
+          return res.json({ Error: "Error comparing passwords" });
+        }
+
+        if (result) {
+          return res.json({ Status: "Current password is correct" });
+        } else {
+          return res.json({ Status: "Invalid password" });
+        }
+      });
+    } else {
+      return res.json({ Error: "User not found" });
+    }
   });
 });
 
 app.put("/user/change-password", verifyUser, (req, res) => {
   const { currentPassword, newPassword } = req.body;
 
-  const sqlGetPassword = "SELECT password FROM login WHERE name = ?";
-  const sqlUpdatePassword = "UPDATE login SET password = ? WHERE name = ?";
+  const sqlGetPassword = "SELECT password FROM login WHERE id = ?";
+  const sqlUpdatePassword = "UPDATE login SET password = ? WHERE id = ?";
 
   // Fetch the current password from the database
-  db.query(sqlGetPassword, [req.name], (err, data) => {
+  db.query(sqlGetPassword, [req.user_id], (err, data) => {
     if (err) {
       return res.json({ Error: "Error fetching user password" });
     }
 
     if (data.length > 0) {
-      // Compare the provided current password with the stored password
       bcrypt.compare(currentPassword, data[0].password, (err, response) => {
         if (err) return res.json({ Error: "Password comparison error" });
         if (response) {
@@ -221,14 +317,10 @@ app.put("/user/change-password", verifyUser, (req, res) => {
             if (err) return res.json({ Error: "Error hashing new password" });
 
             // Update the password in the database
-            db.query(
-              sqlUpdatePassword,
-              [hashedPassword, req.name],
-              (err, result) => {
-                if (err) return res.json({ Error: "Error updating password" });
-                return res.json({ Status: "Password updated successfully" });
-              }
-            );
+            db.query(sqlUpdatePassword, [hashedPassword, req.user_id], (err, result) => {
+              if (err) return res.json({ Error: "Error updating password" });
+              return res.json({ Status: "Password updated successfully" });
+            });
           });
         } else {
           return res.json({ Error: "Current password is incorrect" });

@@ -15,6 +15,8 @@ import AdminFaq from "./Components/AdminFaq/AdminFaq";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
 import VerifyEmail from "./Components/VerifyEmail/VerifyEmail";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
+import ResetPassword from "./Components/ResetPassword/ResetPassword";
 
 
 function App() {
@@ -64,6 +66,8 @@ function App() {
         
         // Public route for email verification
         { path: "verify-email", element: <VerifyEmail /> },
+        { path: "forgot-password", element: <ForgotPassword />},
+        { path: "reset-password", element: <ResetPassword />},
 
         // Fallback for 404
         { path: "*", element: <NotFound /> },

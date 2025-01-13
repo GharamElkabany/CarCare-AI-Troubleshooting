@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Profile.module.css";
 import axios from "axios";
-import { useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile( { setAuth, setRole } ) {
   const [editing, setEditing] = useState(false);
@@ -26,18 +26,25 @@ export default function Profile( { setAuth, setRole } ) {
   }, []);
 
   useEffect(() => {
-    // Fetch user profile data
-    axios
-      .get("http://localhost:5000/user/profile", { withCredentials: true })
-      .then((res) => {
-        if (res.data.Error) {
-          setErrorMessage(res.data.Error);
-        } else {
-          setUserData(res.data);
-          setUpdatedData(res.data);
-        }
-      })
-      .catch(() => setErrorMessage("Failed to load user data"));
+    const storedUserData = localStorage.getItem("userData");
+  if (storedUserData) {
+    setUserData(JSON.parse(storedUserData)); // Load data from localStorage
+    setUpdatedData(JSON.parse(storedUserData));
+  } else {
+      // If no data in localStorage, fetch from the server
+      axios
+        .get("http://localhost:5000/user/profile", { withCredentials: true })
+        .then((res) => {
+          if (res.data.Error) {
+            setErrorMessage(res.data.Error);
+          } else {
+            setUserData(res.data);
+            setUpdatedData(res.data);
+            localStorage.setItem("userData", JSON.stringify(res.data)); // Save data to localStorage
+          }
+        })
+        .catch(() => setErrorMessage("Failed to load user data"));
+    }
   }, []);
 
   const handleInputChange = (e) => {
@@ -45,8 +52,18 @@ export default function Profile( { setAuth, setRole } ) {
   };
 
   const handleSave = () => {
+    if (
+      updatedData.name === userData.name &&
+      updatedData.phone === userData.phone
+    ) {
+      setErrorMessage("No changes made.");
+      return;
+    }
+
+    const dataToUpdate = { ...updatedData, email: userData.email };
+    
     axios
-      .put("http://localhost:5000/user/profile", updatedData, {
+      .put("http://localhost:5000/user/profile", dataToUpdate, {
         withCredentials: true,
       })
       .then((res) => {
@@ -54,7 +71,8 @@ export default function Profile( { setAuth, setRole } ) {
           setErrorMessage(res.data.Error);
         } else {
           setSuccessMessage("Profile updated successfully!");
-          setUserData(updatedData); // Update local state
+          setUserData(dataToUpdate); // Update local state
+          localStorage.setItem("userData", JSON.stringify(dataToUpdate));
           setEditing(false);
         }
       })
@@ -68,6 +86,7 @@ export default function Profile( { setAuth, setRole } ) {
         if (res.data.Status === "Success") {
           setAuth(false);
           setRole("");
+          localStorage.removeItem("userData");
           navigate("/"); // Redirect to welcome after logout
         }
       })
@@ -141,7 +160,10 @@ export default function Profile( { setAuth, setRole } ) {
               ) : (
                 <button
                   className={styles.editButton}
-                  onClick={() => setEditing(true)}
+                  onClick={() => {
+                    setUpdatedData(userData);
+                    setEditing(true);
+                  }}
                 >
                   Edit Profile
                 </button>
