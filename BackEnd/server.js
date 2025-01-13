@@ -1,7 +1,7 @@
 import express from "express";
 import mysql from "mysql";
 import cors from "cors";
-import path from "path";
+import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import cookieParser from "cookie-parser";
@@ -29,6 +29,18 @@ const db = mysql.createConnection({
   database: "carcare",
 });
 
+const transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 587,
+  secure: false,
+  auth: {
+      user: 'gharam2001255@gmail.com',
+      pass: 'gcfavlnibrgmfjfa',
+  },
+  debug: true,
+  logger: true,
+});
+
 const verifyUser = (req, res, next) => {
   const token = req.cookies.token;
   if (!token) {
@@ -52,57 +64,100 @@ app.get("/", verifyUser, (req, res) => {
   return res.json({ Status: "Success", Name: req.name, Role: req.role });
 });
 
-app.post("/register", (req, res) => {
-  const sql =
-    "INSERT INTO login (`name`,`email`,`phone`,`password`) VALUES (?)";
+app.post('/register', (req, res) => {
+  const sql = "INSERT INTO login (`name`,`email`,`phone`,`password`,`verificationToken`) VALUES (?)";
   bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
-    if (err) return res.json({ Error: "Error for hashing password" });
-    const values = [req.body.name, req.body.email, req.body.phone, hash];
-    db.query(sql, [values], (err, result) => {
-      if (err) return res.json({ Error: "Inserting data Error in server" });
-      return res.json({ Status: "Success" });
-    });
+      if (err) return res.json({ Error: "Error hashing password" });
+      const verificationToken = jwt.sign({ email: req.body.email }, "jwt-secret-key", { expiresIn: "1d" });
+      const values = [req.body.name, req.body.email, req.body.phone, hash, verificationToken];
+      db.query(sql, [values], (err, result) => {
+          if (err) return res.json({ Error: "Error inserting data into database" });
+
+          // Send verification email
+          const verificationLink = `http://localhost:3000/verify-email?token=${verificationToken}`;
+          const mailOptions = {
+              from: 'gharam2001255@gmail.com',
+              to: req.body.email,
+              subject: 'Verify Your Email',
+              html: `<p>Click the link below to verify your email:</p>
+                     <a href="${verificationLink}">${verificationLink}</a>`,
+          };
+
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.error("Error sending email:", error);
+                return res.json({ Error: "Error sending verification email" });
+            }
+            res.json({ Status: "Success", Message: "Verification email sent. Please check your inbox." });
+          });
+      });
   });
 });
 
-app.post("/login", (req, res) => {
-  const sql = "SELECT * FROM login WHERE  email = ? OR phone = ?";
-  db.query(
-    sql,
-    [req.body.email || req.body.phone, req.body.email || req.body.phone],
-    (err, data) => {
-      if (err) return res.json({ Error: "Login error in server" });
-      if (data.length > 0) {
-        bcrypt.compare(
-          req.body.password.toString(),
-          data[0].password,
-          (err, response) => {
-            if (err) return res.json({ Error: "Password compare error" });
-            if (response) {
-              const { id, name, role } = data[0];
-              const token = jwt.sign({ id, name, role }, "jwt-secret-key", {
-                expiresIn: "1d",
-              });
-              res.cookie("token", token);
-              return res.json({ Status: "Success", role });
-              console.log("JWT Payload:", { id, name, role });
-            } else {
-              return res.json({ Error: "Password not matched" });
-            }
+app.get('/verify-email', (req, res) => {
+  const token = req.query.token;
+  if (!token) return res.json({ Error: "Missing token" });
+
+  jwt.verify(token, "jwt-secret-key", (err, decoded) => {
+      if (err) return res.json({ Error: "Invalid or expired token" });
+
+      const sql = "UPDATE login SET isVerified = TRUE WHERE email = ?";
+      db.query(sql, [decoded.email], (err, result) => {
+          if (err) return res.json({ Error: "Error updating verification status" });
+
+          if (result.affectedRows > 0) {
+              res.json({ Status: "Success", Message: "Email verified successfully!" });
+          } else {
+              res.json({ Error: "User not found" });
           }
-        );
-      } else {
-        return res.json({
-          Error: "No account found with the provided email or phone number",
-        });
-      }
+      });
+  });
+});
+
+app.post('/check-email', (req, res) => {
+  const { email } = req.body;
+  const query = 'SELECT * FROM login WHERE email = ?';
+  db.query(query, [email], (err, result) => {
+    if (err) {
+      res.status(500).json({ Status: 'Error', Error: 'Database error' });
+    } else if (result.length > 0) {
+      res.status(200).json({ Status: 'Fail', Error: 'Email already exists' });
+    } else {
+      res.status(200).json({ Status: 'Success' });
     }
-  );
+  });
+});
+
+app.post('/login', (req, res) => {
+  const sql = "SELECT * FROM login WHERE email = ? OR phone = ?";
+  db.query(sql, [req.body.email || req.body.phone, req.body.email || req.body.phone], (err, data) => {
+      if (err) return res.json({ Error: "Login error in server" });
+
+      if (data.length > 0) {
+          if (!data[0].isVerified) {
+              return res.json({ Error: "Please verify your email before logging in" });
+          }
+
+          bcrypt.compare(req.body.password.toString(), data[0].password, (err, response) => {
+              if (err) return res.json({ Error: "Password compare error" });
+              if (response) {
+                  const { id, name, role } = data[0];
+                  const token = jwt.sign({ id, name, role }, "jwt-secret-key", { expiresIn: "1d" });
+                  res.cookie("token", token);
+                  return res.json({ Status: "Success", role });
+              } else {
+                  return res.json({ Error: "Something went wrong, Please try again later" });
+              }
+          });
+      } else {
+          return res.json({ Error: "No account found with the provided email or phone number" });
+      }
+  });
 });
 
 app.get("/users", verifyUser, (req, res) => {
   const sql =
-    'SELECT id, name, email, phone, role FROM login';
+    'SELECT id, name, email, phone, role, isVerified FROM login';
   db.query(sql, (err, data) => {
     if (err) {
       console.error("Database Error:", err);
@@ -189,7 +244,7 @@ app.put("/user/change-password", verifyUser, (req, res) => {
 app.get("/users/search", verifyUser, (req, res) => {
   const search = req.query.q || "";
   const sql = `
-    SELECT id, name, email, phone, role 
+    SELECT id, name, email, phone, role, isVerified 
     FROM login 
     WHERE (name LIKE ? OR email LIKE ? OR phone LIKE ?)
   `;
@@ -204,10 +259,15 @@ app.get("/users/search", verifyUser, (req, res) => {
 
 //Admin edit user 
 app.put("/users/:id", verifyUser, (req, res) => {
+  console.log("Request body received:", req.body);
   const { id } = req.params;
-  const { name, phone, role } = req.body;
-  const sql = "UPDATE login SET name = ?, phone = ?, role = ? WHERE id = ?";
-  db.query(sql, [name, phone, role, id], (err, result) => {
+  const { name, phone, role, is_verified } = req.body;
+
+  const verifiedValue = is_verified === "1" ? 1 : 0;
+  console.log("Verified value:", verifiedValue);
+
+  const sql = "UPDATE login SET name = ?, phone = ?, role = ?, isVerified = ? WHERE id = ?";
+  db.query(sql, [name, phone, role, verifiedValue, id], (err, result) => {
     if (err) {
       console.error("Error updating user:", err);
       return res.json({ Error: "Error updating user" });

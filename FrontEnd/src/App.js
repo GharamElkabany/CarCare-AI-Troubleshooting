@@ -2,9 +2,6 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Layout from "./Components/Layout/Layout";
 import Home from "./Components/Home/Home";
-import About from "./Components/About/About";
-import Faq from "./Components/Faq/Faq";
-import Feedback from "./Components/Feedback/Feedback";
 import Diagnostics from "./Components/Diagnostics/Diagnostics";
 import Register from "./Components/Register/Register";
 import Login from "./Components/Login/Login";
@@ -16,7 +13,9 @@ import AdminFeedbacks from "./Components/AdminFeedbacks/AdminFeedbacks";
 import NotFound from "./Components/NotFound/NotFound";
 import AdminFaq from "./Components/AdminFaq/AdminFaq";
 import AdminDashboard from "./Components/AdminDashboard/AdminDashboard";
+import VerifyEmail from "./Components/VerifyEmail/VerifyEmail";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+
 
 function App() {
   const [auth, setAuth] = useState(false); // Default to logged out
@@ -62,6 +61,9 @@ function App() {
         { path: "adminFeedbacks", element: role === "admin" ? <ProtectedRoute><AdminFeedbacks /></ProtectedRoute> : <Navigate to="/home" replace /> },
         { path: "adminFaq", element: role === "admin" ? <ProtectedRoute><AdminFaq /></ProtectedRoute> : <Navigate to="/home" replace /> },
         { path: "adminDashboard", element: role === "admin" ? <ProtectedRoute><AdminDashboard /></ProtectedRoute> : <Navigate to="/home" replace /> },
+        
+        // Public route for email verification
+        { path: "verify-email", element: <VerifyEmail /> },
 
         // Fallback for 404
         { path: "*", element: <NotFound /> },

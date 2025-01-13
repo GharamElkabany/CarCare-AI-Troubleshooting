@@ -10,15 +10,26 @@ export default function Register() {
 
   function handleRegister(values) {
     axios
+    .post("http://localhost:5000/check-email", { email: values.email })
+    .then((res) => {
+      if (res.data.Status === "Fail") {
+        alert("Email already exists. Please use a different email.");
+        return; // Stop registration process
+      }
+
+    axios
       .post("http://localhost:5000/register", values)
       .then((res) => {
         if (res.data.Status === "Success") {
+          alert("Registration successful! Please check your email to verify your account.");
           navigate("/login");
         } else {
           alert(res.data.Error);
         }
       })
-      .then((err) => console.log(err));
+      .catch((err) => console.log(err));
+    })
+    .catch((err) => console.log(err));
   }
 
   let validationSchema = Yup.object({

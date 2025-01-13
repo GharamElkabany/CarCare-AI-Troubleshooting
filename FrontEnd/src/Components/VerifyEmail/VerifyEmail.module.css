@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px);
+    background-image: url('../../assets/images/registerbg.jpg'); 
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
+.card {
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.922);
+}
+
+.icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    margin: 10px 0;
+    font-size: 24px;
+    color: #333333;
+}
+
+p {
+    margin: 0;
+    font-size: 16px;
+    color: #a0a0a0;
+}
+
+/* Success Style */
+.successCard {
+    border: 2px solid #4caf50;
+}
+
+.successCard h1 {
+    color: #4caf50;
+}
+
+/* Error Style */
+.errorCard {
+    border: 2px solid #f44336;
+}
+
+.errorCard h1 {
+    color: #f44336;
+}

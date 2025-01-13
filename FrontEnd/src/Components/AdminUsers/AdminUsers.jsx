@@ -19,6 +19,7 @@ export default function AdminUsers() {
     phone: "",
     password: "",
     role: "user",
+    is_verified: "0",
   });
 
   useEffect(() => {
@@ -31,7 +32,11 @@ export default function AdminUsers() {
         withCredentials: true,
       });
       if (Array.isArray(response.data)) {
-        setUsers(response.data);
+        const normalizedUsers = response.data.map((user) => ({
+          ...user,
+          is_verified: Number(user.isVerified), // Ensure is_verified is always a number (1 or 0)
+        }));
+        setUsers(normalizedUsers);
       } else if (response.data.Error) {
         setError(response.data.Error);
       }
@@ -65,14 +70,19 @@ export default function AdminUsers() {
       : "http://localhost:5000/register";
     const method = newUser.id ? "put" : "post";
 
+    const payload = {
+      ...newUser,
+      isVerified: newUser.is_verified,
+    };
+
     try {
-      const response = await axios[method](url, newUser, {
+      const response = await axios[method](url, payload, {
         withCredentials: true,
       });
       if (response.data.Status === "Success") {
         alert(newUser.id ? "User updated successfully" : "User added successfully");
         setShowModal(false);
-        setNewUser({ id: "", name: "", email: "", phone: "", password: "", role: "user" });
+        setNewUser({ id: "", name: "", email: "", phone: "", password: "", role: "user", is_verified: "0" });
         fetchUsers();
       } else if (response.data.Error) {
         alert(response.data.Error);
@@ -110,7 +120,7 @@ export default function AdminUsers() {
 
   const handleEditUser = (user) => {
     setShowModal(true);
-    setNewUser({ ...user, password: "" });
+    setNewUser({ ...user, password: "", is_verified: String(user.isVerified) });
   };
 
   if (loading) return <div>Loading...</div>;
@@ -181,6 +191,13 @@ export default function AdminUsers() {
                 <option value="admin">Admin</option>
                 <option value="user">User</option>
               </select>
+              <select
+                value={newUser.is_verified}
+                onChange={(e) => setNewUser({ ...newUser, is_verified: e.target.value })}
+              >
+                <option value="1">Verified</option>
+                <option value="0">Not Verified</option>
+              </select>
               <div className={styles.modalActions}>
                 <button onClick={handleAddEditUser} className={styles.submitButton}>
                   Save
@@ -202,6 +219,7 @@ export default function AdminUsers() {
                   <strong>Email:</strong> {user.email}
                   <strong>Contact:</strong> {user.phone}
                   <strong>Role:</strong> {user.role}
+                  <strong>Status:</strong> {user.is_verified === 1 || user.is_verified === "1" || user.is_verified === true ? "Verified" : "Not Verified"}
                 </div>
                 <div className={styles.actions}>
                   <button onClick={() => handleEditUser(user)} className={styles.actionButton}>
@@ -222,6 +240,7 @@ export default function AdminUsers() {
                 <th>Email</th>
                 <th>Contact</th>
                 <th>Role</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -232,6 +251,7 @@ export default function AdminUsers() {
                   <td>{user.email}</td>
                   <td>{user.phone}</td>
                   <td>{user.role}</td>
+                  <td>{user.is_verified === 1 || user.is_verified === "1" || user.is_verified === true ? "Verified" : "Not Verified"}</td>
                   <td>
                     <button onClick={() => handleEditUser(user)} className={styles.actionButton}>
                       ✏️
