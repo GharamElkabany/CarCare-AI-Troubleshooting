@@ -442,7 +442,11 @@ app.get("/stats/feedback-vs-registration", verifyUser, (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-  const query = "SELECT id, text FROM about";
+  const query =  `
+  SELECT a.id, a.text, a.last_modified_by, l.name AS last_modified_by_name 
+  FROM about a 
+  LEFT JOIN login l ON a.last_modified_by = l.id
+  `;
   db.query(query, (err, result) => {
     if (err) {
       console.error(err);
@@ -456,14 +460,14 @@ app.get("/about", (req, res) => {
   });
 });
 
-app.put("/about", (req, res) => {
+app.put("/about", verifyUser, (req, res) => {
   const { id, text } = req.body;
   if (!id || !text) {
     return res.status(400).json({ message: "Text is required." });
   }
 
-  const query = "UPDATE about SET text = ? WHERE id = ?";
-  db.query(query, [text, id], (err, result) => {
+  const query = "UPDATE about SET text = ?, last_modified_by = ? WHERE id = ?";
+  db.query(query, [text, req.user_id, id], (err, result) => {
     if (err) {
       console.error(err);
       return res.status(500).json({ message: "Error saving About Us text." });
@@ -493,11 +497,11 @@ app.get("/faqs", (req, res) => {
 });
 
 // Add a new FAQ
-app.post("/faqs", (req, res) => {
+app.post("/faqs", verifyUser, (req, res) => {
   const { question, answer } = req.body;
   db.query(
-    "INSERT INTO faqs (question, answer) VALUES (?, ?)",
-    [question, answer],
+    "INSERT INTO faqs (question, answer, last_modified_by) VALUES (?, ?, ?)",
+    [question, answer, req.user_id],
     (err) => {
       if (err) {
         return res.status(500).json({ error: "Failed to add FAQ" });
@@ -508,12 +512,12 @@ app.post("/faqs", (req, res) => {
 });
 
 // Update an FAQ
-app.put("/faqs/:id", (req, res) => {
+app.put("/faqs/:id", verifyUser, (req, res) => {
   const { id } = req.params;
   const { question, answer } = req.body;
   db.query(
-    "UPDATE faqs SET question = ?, answer = ? WHERE id = ?",
-    [question, answer, id],
+    "UPDATE faqs SET question = ?, answer = ?, last_modified_by = ? WHERE id = ?",
+    [question, answer, req.user_id, id],
     (err) => {
       if (err) {
         return res.status(500).json({ error: "Failed to update FAQ" });
