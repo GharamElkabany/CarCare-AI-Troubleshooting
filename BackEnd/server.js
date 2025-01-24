@@ -539,5 +539,5 @@ app.delete("/faqs/:id", (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log("listening");
+  console.log(`Server running on port ${port}`);
 });

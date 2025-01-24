@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(125vh - 50px); 
+    height: calc(100vh - 50px); 
     padding: 20px;
     overflow: hidden;
     background-image: url('../../assets/images/registerbg.jpg'); 

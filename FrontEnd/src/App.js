@@ -17,7 +17,7 @@ import VerifyEmail from "./Components/VerifyEmail/VerifyEmail";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import ForgotPassword from "./Components/ForgotPassword/ForgotPassword";
 import ResetPassword from "./Components/ResetPassword/ResetPassword";
-
+import Support from "./Components/Support/Support";
 
 function App() {
   const [auth, setAuth] = useState(false); // Default to logged out
@@ -59,6 +59,7 @@ function App() {
         { path: "profile", element: <ProtectedRoute><Profile setAuth={setAuth} setRole={setRole} /></ProtectedRoute> },
         { path: "changePassword", element: <ProtectedRoute><ChangePassword /></ProtectedRoute> },
         { path: "diagnostics", element: <ProtectedRoute><Diagnostics /></ProtectedRoute> },
+        { path: "support", element: <ProtectedRoute><Support /></ProtectedRoute> },
         { path: "adminUsers", element: role === "admin" ? <ProtectedRoute><AdminUsers /></ProtectedRoute> : <Navigate to="/home" replace /> },
         { path: "adminFeedbacks", element: role === "admin" ? <ProtectedRoute><AdminFeedbacks /></ProtectedRoute> : <Navigate to="/home" replace /> },
         { path: "adminFaq", element: role === "admin" ? <ProtectedRoute><AdminFaq /></ProtectedRoute> : <Navigate to="/home" replace /> },

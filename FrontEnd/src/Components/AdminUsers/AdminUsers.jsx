@@ -48,6 +48,11 @@ export default function AdminUsers() {
   };
 
   const searchUsers = async (query) => {
+    if (!query.trim()) {
+      fetchUsers(); // Reset to full list when query is empty
+      return;
+    }
+
     try {
       const response = await axios.get(
         `http://localhost:5000/users/search?q=${query}`,
@@ -131,20 +136,30 @@ export default function AdminUsers() {
       <div className={styles.tableContainer}>
         <div className={styles.headerContainer}>
           <h2 className={styles.pageTitle}>List of Users</h2>
-          <input
-            type="text"
-            placeholder="Search by name, email or contact ..."
-            value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-              searchUsers(e.target.value);
-            }}
-            className={styles.searchBox}
-          />
+          <form onSubmit={(e) => e.preventDefault()}>
+            <input
+              type="text"
+              id="searchField"
+              name="searchField"
+              placeholder="Search by name, email or contact ..."
+              value={searchQuery}
+              onChange={(e) => {
+                const query = e.target.value;
+                setSearchQuery(query);
+              }}
+              onKeyUp={(e) => {
+                if (e.key === "Enter" || e.key === "Backspace" || e.key.length === 1) {
+                  searchUsers(e.target.value); // Only trigger search on valid user action
+                }
+              }}
+              autoComplete="off"
+              className={styles.searchBox}
+            />
+          </form>
           <button
             onClick={() => {
               setShowModal(true);
-              setNewUser({ id: "", name: "", email: "", phone: "", password: "", role: "user" });
+              setNewUser({ id: "", name: "", email: "", phone: "", password: "", role: "user", is_verified: "0" });
               setSearchQuery("");
             }}
             className={styles.addButton}
@@ -159,9 +174,12 @@ export default function AdminUsers() {
               <h3>{newUser.id ? "Edit User" : "Add New User"}</h3>
               <input
                 type="text"
+                id="addUserNameField"
+                name="addUserName"
                 placeholder="Name"
                 value={newUser.name}
                 onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
+                autoComplete="off"
               />
               <input
                 type="email"
@@ -175,6 +193,7 @@ export default function AdminUsers() {
                 placeholder="Phone"
                 value={newUser.phone}
                 onChange={(e) => setNewUser({ ...newUser, phone: e.target.value })}
+                autoComplete="off"
               />
               {!newUser.id && (
                 <input
@@ -182,6 +201,7 @@ export default function AdminUsers() {
                   placeholder="Password"
                   value={newUser.password}
                   onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+                  autoComplete="new-password"
                 />
               )}
               <select

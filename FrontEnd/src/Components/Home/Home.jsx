@@ -6,6 +6,7 @@ import About from "../About/About";
 import Faq from "../Faq/Faq";
 import Feedback from "../Feedback/Feedback";
 import AdminDashboard from "../AdminDashboard/AdminDashboard";
+import Support from "../Support/Support";
 
 export default function Home() {
   const { role } = useOutletContext();
@@ -72,6 +73,12 @@ export default function Home() {
       <div id="feedback">
         {role === "user" && (
             <Feedback />          
+        )}
+      </div>
+
+      <div id="support">
+        {role === "user" && (
+          <Support />          
         )}
       </div>
     </>
