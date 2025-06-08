@@ -13,11 +13,11 @@ const app = express();
 app.use(express.json()); //passing json data from incoming http requests
 app.use(
   cors({
-    origin: ["http://localhost:3000"],
+    origin: ["*"],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
-); //address security consern
+);
 app.use(cookieParser());
 
 const port = 5000;
@@ -77,10 +77,10 @@ app.post('/register', (req, res) => {
           // Send verification email
           const verificationLink = `http://localhost:3000/verify-email?token=${verificationToken}`;
           const mailOptions = {
-              from: 'gharam2001255@gmail.com',
+              from: 'carcaretroubleshooting@gmail.com',
               to: req.body.email,
               subject: 'Verify Your Email',
-              html: `<p>Click the link below to verify your email:</p>
+              html: `<p>Click the link below to verify your email within 24 hours:</p>
                      <a href="${verificationLink}">${verificationLink}</a>`,
           };
 

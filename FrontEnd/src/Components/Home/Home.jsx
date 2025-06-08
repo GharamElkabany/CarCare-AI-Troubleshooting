@@ -41,7 +41,7 @@ export default function Home() {
           <div className={styles.heroSection}>
             <h1 className={styles.heroTitle}>Empower Your Car Maintenance</h1>
             <p className={styles.heroSubtitle}>
-              Diagnose and Fix Car Issues with Ease
+              Diagnose and Fix Car <b>Dashboard</b> Issues with Ease
             </p>
             <Link to="/diagnostics">
               <button className={styles.heroButton}>
