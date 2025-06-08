@@ -13,7 +13,7 @@ const app = express();
 app.use(express.json()); //passing json data from incoming http requests
 app.use(
   cors({
-    origin: ["*"],
+    origin: ["http://localhost:3000"],
     methods: ["POST", "GET", "PUT", "DELETE"],
     credentials: true,
   })
